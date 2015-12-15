@@ -19,9 +19,6 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        if(!Yii::$app->getModule('admin')->installed){
-            return $this->redirect(['/install/step1']);
-        }
         return $this->render('index');
     }
 }
