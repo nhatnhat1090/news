@@ -5,6 +5,9 @@ use Yii;
 use yii\data\ActiveDataProvider;
 use yii\widgets\ActiveForm;
 use yii\easyii\models\Admin;
+use yii\helpers\ArrayHelper;
+use yii\easyii\modules\article\models\Category;
+
 
 class AdminsController extends \yii\easyii\components\Controller
 {
@@ -26,8 +29,10 @@ class AdminsController extends \yii\easyii\components\Controller
     {
         $model = new Admin;
         $model->scenario = 'create';
+        $formData = Yii::$app->request->post();
+        if ($model->load($formData)) {
+            $model->role = $formData['Admin']['role'];
 
-        if ($model->load(Yii::$app->request->post())) {
             if(Yii::$app->request->isAjax){
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                 return ActiveForm::validate($model);
@@ -45,7 +50,8 @@ class AdminsController extends \yii\easyii\components\Controller
         }
         else {
             return $this->render('create', [
-                'model' => $model
+                'model' => $model,
+                'cate'  => ArrayHelper::map(Category::getRootCates(), 'category_id', 'title')
             ]);
         }
     }
@@ -53,13 +59,18 @@ class AdminsController extends \yii\easyii\components\Controller
     public function actionEdit($id)
     {
         $model = Admin::findOne($id);
-
+        
         if($model === null){
             $this->flash('error', Yii::t('easyii', 'Not found'));
             return $this->redirect(['/admin/admins']);
         }
-
-        if ($model->load(Yii::$app->request->post())) {
+        
+        $model->cate_manage = explode(',', $model->cate_manage);
+        $formData = Yii::$app->request->post();
+        
+        if ($model->load($formData)) {
+            $model->role = $formData['Admin']['role'];
+            
             if(Yii::$app->request->isAjax){
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                 return ActiveForm::validate($model);
@@ -76,7 +87,8 @@ class AdminsController extends \yii\easyii\components\Controller
         }
         else {
             return $this->render('edit', [
-                'model' => $model
+                'model' => $model,
+                'cate'  => ArrayHelper::map(Category::getRootCates(), 'category_id', 'title')
             ]);
         }
     }

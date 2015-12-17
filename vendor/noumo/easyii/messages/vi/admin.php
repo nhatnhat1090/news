@@ -124,5 +124,8 @@ return [
     'Clear image' => 'Hủy bỏ ảnh',
     'Image cleared' => 'Ảnh đã được hủy',
 
-
+    'Administrator' =>  'Quản trị viên',
+    'Editor' =>  'Biên tập viên',
+    'Assign role'   =>  'Thiết lập quyền',
+    'Assign categories' =>  'Chuyên mục hoạt động'
 ];

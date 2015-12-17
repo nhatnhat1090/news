@@ -224,4 +224,13 @@ class CategoryModel extends \yii\easyii\components\ActiveRecord
 
         return $flat;
     }
+    
+    /**
+     * Generates array of root categories
+     * @return array
+     */
+    public static function getRootCates()
+    {
+        return static::find()->where(['depth' => 0])->sort()->asArray()->all();
+    }
 }

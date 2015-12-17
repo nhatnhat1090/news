@@ -25,7 +25,16 @@ class Admin extends \yii\easyii\components\ActiveRecord implements \yii\web\Iden
             ['username', 'unique'],
             ['password', 'required', 'on' => 'create'],
             ['password', 'safe'],
+            ['cate_manage', 'required'],
             ['access_token', 'default', 'value' => null]
+        ];
+    }
+    
+    public function roles()
+    {
+        return [
+            'admin' => Yii::t('easyii', 'Administrator'),
+            'editor' => Yii::t('easyii', 'Editor'),
         ];
     }
 
@@ -34,12 +43,15 @@ class Admin extends \yii\easyii\components\ActiveRecord implements \yii\web\Iden
         return [
             'username' => Yii::t('easyii', 'Username'),
             'password' => Yii::t('easyii', 'Password'),
+            'role' => Yii::t('easyii', 'Assign role'),
+            'cate_manage' => Yii::t('easyii', 'Assign categories'),
         ];
     }
 
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
+            $this->cate_manage = implode(',', $this->cate_manage);
             if ($this->isNewRecord) {
                 $this->auth_key = $this->generateAuthKey();
                 $this->password = $this->hashPassword($this->password);
