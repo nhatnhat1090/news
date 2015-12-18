@@ -27,6 +27,7 @@ $baseUrl = '/admin/'.$this->context->moduleName;
                             <span <?= ($cat->status == CategoryModel::STATUS_OFF ? 'class="smooth"' : '') ?>><?= $cat->title ?></span>
                         <?php endif; ?>
                     </td>
+                    <?php if(IS_ROOT) : ?>
                     <td width="120" class="text-right">
                         <div class="dropdown actions">
                             <i id="dropdownMenu<?= $cat->category_id ?>" data-toggle="dropdown" aria-expanded="true" title="<?= Yii::t('easyii', 'Actions') ?>" class="glyphicon glyphicon-menu-hamburger"></i>
@@ -46,6 +47,7 @@ $baseUrl = '/admin/'.$this->context->moduleName;
                             </ul>
                         </div>
                     </td>
+                    <?php endif; ?>
                 </tr>
             <?php endforeach;?>
         </tbody>

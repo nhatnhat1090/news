@@ -111,14 +111,14 @@ class CategoryModel extends \yii\easyii\components\ActiveRecord
      * Get cached flat array of category objects
      * @return array
      */
-    public static function cats()
+    public static function cats($ids = [])
     {
         $cache = Yii::$app->cache;
         $key = static::tableName().'_flat';
 
         $flat = $cache->get($key);
         if(!$flat){
-            $flat = static::generateFlat();
+            $flat = static::generateFlat($ids);
             $cache->set($key, $flat, 3600);
         }
         return $flat;
@@ -176,9 +176,14 @@ class CategoryModel extends \yii\easyii\components\ActiveRecord
      * Generates flat array of categories
      * @return array
      */
-    public static function generateFlat()
+    public static function generateFlat($ids = [])
     {
-        $collection = static::find()->with('seo')->sort()->asArray()->all();
+        if ($ids) {
+            $collection = static::find()->with('seo')->where(['in', 'tree', $ids])->sort()->asArray()->all();
+        } else {
+            $collection = static::find()->with('seo')->sort()->asArray()->all();
+        }
+
         $flat = [];
 
         if (count($collection) > 0) {

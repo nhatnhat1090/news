@@ -25,11 +25,12 @@ $moduleName = $this->context->module->id;
             <div class="header">
                 <div class="logo">
                     <img src="<?= $asset->baseUrl ?>/img/logo_20.png">
-                    EasyiiCMS
+                    manggiaoduc.vn
                 </div>
                 <div class="nav">
                     <a href="<?= Url::to(['/']) ?>" class="pull-left"><i class="glyphicon glyphicon-home"></i> <?= Yii::t('easyii', 'Open site') ?></a>
-                    <a href="<?= Url::to(['/admin/sign/out']) ?>" class="pull-right"><i class="glyphicon glyphicon-log-out"></i> <?= Yii::t('easyii', 'Logout') ?></a>
+                    <a href="<?= Url::to(['/admin/sign/out']) ?>" class="pull-right margin-left "><i class="glyphicon glyphicon-log-out"></i> <?= Yii::t('easyii', 'Logout') ?></a>
+                    <a href="#" class="pull-right"><i class="glyphicon glyphicon-user"></i> <?= Yii::$app->user->identity->username ?></a>
                 </div>
             </div>
             <div class="main">

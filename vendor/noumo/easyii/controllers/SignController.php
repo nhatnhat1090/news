@@ -25,7 +25,7 @@ class SignController extends \yii\web\Controller
     public function actionOut()
     {
         Yii::$app->user->logout();
-
+        Yii::$app->cache->flush();
         return $this->redirect(Yii::$app->homeUrl);
     }
 }

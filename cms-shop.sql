@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2015-12-16 20:26:53
+Date: 2015-12-18 21:08:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,14 +25,20 @@ CREATE TABLE `easyii_admins` (
   `password` varchar(64) NOT NULL,
   `auth_key` varchar(128) NOT NULL,
   `access_token` varchar(128) DEFAULT NULL,
+  `role` varchar(16) DEFAULT NULL,
+  `cate_manage` varchar(32) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`admin_id`),
   UNIQUE KEY `access_token` (`access_token`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of easyii_admins
 -- ----------------------------
-INSERT INTO `easyii_admins` VALUES ('1', 'admin', '2f0471fb34963c3d9b558c2076e6589c7efb97eb', 'Zv3ximTWL40SHclp88AbKGfPZM3H6cBd', null);
+INSERT INTO `easyii_admins` VALUES ('6', 'admin', '9aa7ccd18de8470e92e56f5eb6f81fb5996bd6a4', '2-SM07VwmZywDNg7VwUDfkL-0YCidFdj', null, 'admin', '5,2', null);
+INSERT INTO `easyii_admins` VALUES ('5', 'editor', '016a857a1041fd1de074c1f81aab1832c5513f5c', '6hiNKoTsQAf3v4KwXmtZeT-VLj_lDKzw', null, 'editor', '5,2,1', null);
+INSERT INTO `easyii_admins` VALUES ('7', 'tuandn', 'd2f8667794b02175afc93bc59ceafa71aa08e7b4', '7hyYj7ZkzmNqmpjUW-u1lbOCUJDowIrb', null, 'admin', '5', null);
+INSERT INTO `easyii_admins` VALUES ('8', 'linhnt', '90b1a21aa7a0d42ed1d0be378fd8c53305f5e33a', 'x162VflGPi4jvgIgDoCY-KIZptoCKgMj', null, 'admin', '1', 'nhatnhat1090@gmail.com');
 
 -- ----------------------------
 -- Table structure for easyii_article_categories
@@ -337,7 +343,7 @@ CREATE TABLE `easyii_loginform` (
   `time` int(11) DEFAULT '0',
   `success` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`log_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of easyii_loginform
@@ -351,6 +357,29 @@ INSERT INTO `easyii_loginform` VALUES ('6', 'root', '******', '127.0.0.1', 'Mozi
 INSERT INTO `easyii_loginform` VALUES ('7', 'root', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0', '1450091146', '1');
 INSERT INTO `easyii_loginform` VALUES ('8', 'root', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0', '1450187311', '1');
 INSERT INTO `easyii_loginform` VALUES ('9', 'root', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36', '1450272214', '1');
+INSERT INTO `easyii_loginform` VALUES ('10', 'root', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450425689', '1');
+INSERT INTO `easyii_loginform` VALUES ('11', 'admin', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450428077', '1');
+INSERT INTO `easyii_loginform` VALUES ('12', 'root', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450429349', '1');
+INSERT INTO `easyii_loginform` VALUES ('13', 'tuandn', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450433843', '1');
+INSERT INTO `easyii_loginform` VALUES ('14', 'root', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450433886', '1');
+INSERT INTO `easyii_loginform` VALUES ('15', 'root', 'lovingyou', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450434070', '0');
+INSERT INTO `easyii_loginform` VALUES ('16', 'root', 'lovingyou', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450434181', '0');
+INSERT INTO `easyii_loginform` VALUES ('17', 'root', 'lovingyou', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450434186', '0');
+INSERT INTO `easyii_loginform` VALUES ('18', 'root', 'root', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450434194', '0');
+INSERT INTO `easyii_loginform` VALUES ('19', 'root', '123456', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450434229', '0');
+INSERT INTO `easyii_loginform` VALUES ('20', 'root', '123456', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450434436', '0');
+INSERT INTO `easyii_loginform` VALUES ('21', 'tuandn', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450440498', '1');
+INSERT INTO `easyii_loginform` VALUES ('22', 'root', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450440584', '1');
+INSERT INTO `easyii_loginform` VALUES ('23', 'tuandn', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450440750', '1');
+INSERT INTO `easyii_loginform` VALUES ('24', 'root', 'lovingyou', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450442989', '0');
+INSERT INTO `easyii_loginform` VALUES ('25', 'root', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450442992', '1');
+INSERT INTO `easyii_loginform` VALUES ('26', 'tuandn', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450443841', '1');
+INSERT INTO `easyii_loginform` VALUES ('27', 'root', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450446479', '1');
+INSERT INTO `easyii_loginform` VALUES ('28', 'tuandn', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450447295', '1');
+INSERT INTO `easyii_loginform` VALUES ('29', 'root', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450447595', '1');
+INSERT INTO `easyii_loginform` VALUES ('30', 'tuandn', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450447608', '1');
+INSERT INTO `easyii_loginform` VALUES ('31', 'admin', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450447648', '1');
+INSERT INTO `easyii_loginform` VALUES ('32', 'editor', '******', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0', '1450447674', '1');
 
 -- ----------------------------
 -- Table structure for easyii_migration
@@ -569,8 +598,8 @@ CREATE TABLE `easyii_settings` (
 INSERT INTO `easyii_settings` VALUES ('1', 'easyii_version', 'EasyiiCMS version', '0.9', '0');
 INSERT INTO `easyii_settings` VALUES ('2', 'recaptcha_key', 'ReCaptcha key', '1', '1');
 INSERT INTO `easyii_settings` VALUES ('3', 'password_salt', 'Password salt', 'Qp-lw2Fin1FYWdpbL-bpF9orQz99qLEB', '0');
-INSERT INTO `easyii_settings` VALUES ('4', 'root_auth_key', 'Root authorization key', 'LmMXIFWtqYGt-0AvRofGWXQ34EnoW0Pf', '0');
-INSERT INTO `easyii_settings` VALUES ('5', 'root_password', 'Root password', '1966274f5856b86ccc6ce9a9dc39ab7006c1680e', '1');
+INSERT INTO `easyii_settings` VALUES ('4', 'root_auth_key', 'Root authorization key', '7hyYj7ZkzmNqmpjUW-u1lbOCUJDowIrb', '0');
+INSERT INTO `easyii_settings` VALUES ('5', 'root_password', 'Root password', 'd2f8667794b02175afc93bc59ceafa71aa08e7b4', '1');
 INSERT INTO `easyii_settings` VALUES ('6', 'auth_time', 'Auth time', '86400', '1');
 INSERT INTO `easyii_settings` VALUES ('7', 'robot_email', 'Robot E-mail', 'noreply@cms-shop.vn', '1');
 INSERT INTO `easyii_settings` VALUES ('8', 'admin_email', 'Admin E-mail', 'nhatnhat1090@gmail.com', '2');

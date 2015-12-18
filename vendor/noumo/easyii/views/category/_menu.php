@@ -12,6 +12,8 @@ $action = $this->context->action->id;
             <?= Yii::t('easyii', 'Categories') ?>
         </a>
     </li>
+    <?php if(IS_ROOT) : ?>
     <li <?= ($action === 'create') ? 'class="active"' : '' ?>><a href="<?= Url::to(['/admin/'.$this->context->moduleName.'/a/create']) ?>"><?= Yii::t('easyii', 'Create category') ?></a></li>
+    <?php endif; ?>
 </ul>
 <br/>

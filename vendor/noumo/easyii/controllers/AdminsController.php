@@ -30,8 +30,10 @@ class AdminsController extends \yii\easyii\components\Controller
         $model = new Admin;
         $model->scenario = 'create';
         $formData = Yii::$app->request->post();
+        
         if ($model->load($formData)) {
             $model->role = $formData['Admin']['role'];
+            //$model->email = isset($formData['Admin']['mail']) ? $formData['Admin']['mail'] : NULL;
 
             if(Yii::$app->request->isAjax){
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;

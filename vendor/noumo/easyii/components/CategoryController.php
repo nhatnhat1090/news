@@ -13,6 +13,17 @@ use yii\easyii\helpers\Image;
  */
 class CategoryController extends Controller
 {
+    public $rootActions = [
+        'create', 
+        'edit', 
+        'clearImage', 
+        'delete', 
+        'up', 
+        'down', 
+        'on', 
+        'off'
+    ];
+    
     /** @var string */
     public $categoryClass;
 
@@ -30,8 +41,15 @@ class CategoryController extends Controller
     public function actionIndex()
     {
         $class = $this->categoryClass;
+        $cats = NULL;
+        
+        if ((Yii::$app->user->identity->role != 'root') && $cates = Yii::$app->user->identity->controlCates()) {
+            $cats = $class::cats($cates);
+        } else {
+            $cats = $class::cats();
+        }
         return $this->render('@easyii/views/category/index', [
-            'cats' => $class::cats()
+            'cats' => $cats
         ]);
     }
 
