@@ -11,12 +11,36 @@ use yii\easyii\modules\article\models\Category;
 use yii\easyii\modules\article\models\Item;
 use yii\easyii\helpers\Image;
 use yii\widgets\ActiveForm;
+use yii\filters\AccessControl;
+
 
 class ItemsController extends Controller
 {
+    //public $rootActions = 'all';
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['clearImage', 'delete', 'up', 'down', 'on', 'off'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'matchCallback' => function() {
+                            $item = Item::findOne(Yii::$app->getRequest()->getQueryParam('id'));
+                            $tree = ($item) ? $item->category->tree : null;
+                            
+                            if(IS_ROOT) {
+                                return true;
+                            } elseif((Yii::$app->user->identity->role == 'admin') && in_array($tree, Yii::$app->user->identity->controlCates())) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                    ],
+                ],
+            ],
             [
                 'class' => SortableDateController::className(),
                 'model' => Item::className(),
@@ -33,7 +57,11 @@ class ItemsController extends Controller
         if(!($model = Category::findOne($id))){
             return $this->redirect(['/admin/'.$this->module->id]);
         }
-
+        
+        if(!IS_ROOT && !in_array($model->tree, Yii::$app->user->identity->controlCates())) {
+            throw new \yii\web\ForbiddenHttpException('You cannot access this action');
+        } 
+        
         return $this->render('index', [
             'model' => $model
         ]);
@@ -45,7 +73,11 @@ class ItemsController extends Controller
         if(!($category = Category::findOne($id))){
             return $this->redirect(['/admin/'.$this->module->id]);
         }
-
+        
+        if(!IS_ROOT && !in_array($category->tree, Yii::$app->user->identity->controlCates())) {
+            throw new \yii\web\ForbiddenHttpException('You cannot access this action');
+        } 
+        
         $model = new Item;
 
         if ($model->load(Yii::$app->request->post())) {
@@ -87,7 +119,9 @@ class ItemsController extends Controller
         if(!($model = Item::findOne($id))){
             return $this->redirect(['/admin/'.$this->module->id]);
         }
-
+        if (!IS_ROOT && (ROLE != 'admin') && ($model->owner != Yii::$app->user->identity->id)) {
+            throw new \yii\web\ForbiddenHttpException('You cannot access this action');
+        }
         if ($model->load(Yii::$app->request->post())) {
             if(Yii::$app->request->isAjax){
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -177,4 +211,5 @@ class ItemsController extends Controller
     {
         return $this->changeStatus($id, Item::STATUS_OFF);
     }
+    
 }

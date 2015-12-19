@@ -1,0 +1,41 @@
+Dự án web site tin tức http://manggiaoduc.vn/
+Start: 16/12/2015
+
+A. BACKEND
+1. Dựng giao diện, thiết lập môi trường code, database
+16/12/2015
+2. Quản trị thành viên + Authentication + Phân quyền
+17/12/2015 - 18/12/2015
+3. Quản trị chuyên mục tin tức
+19/12/2015
+4. Quản trị tin tức + Quản lý tính năng SEO
+20/12/2015 - 21/12/2015
+5. Quản trị tag
+22/12/2015
+6. Quản trị ảnh tin bài
+23/12/2015
+7. Quản trị các thiết lập + Quản lý Cache
+24/12/2015
+8. Quản lý hỏi đáp(Làm sau ngày 1/1/2016)
+9. Quản trị banner quảng cáo(Làm sau ngày 1/1/2016)
+
+B. FRONTEND
+1. Trang chủ (gồm tập hợp các block thông tin và quảng cáo (mô tả trong mockup)
+25/12/2015-26/12/2015
+2. Giao diện trang list tin thường
+27/12/2015
+3. Giao diện trang xem chi tiết tin thường
+28/12/2015
+5. Giao diện trang list tin ảnh
+29/12/2015
+6. Giao diện trang chi tiết tin ảnh
+30/12/2015
+7. Giao diện trang list tin video
+31/12/2015
+8. Giao diện trang xem chi tiết tin video
+31/12/2015
+9. Chức năng tìm kiếm và trang trả kết quả tìm kiếm (Làm sau ngày 1/1/2016)
+10. Chức năng đặt câu hỏi(Làm sau ngày 1/1/2016)
+11. Chức năng list câu hỏi của bạn đọc và câu trả lời của quản trị(Làm sau ngày 1/1/2016)
+
+End: 1/1/2016

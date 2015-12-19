@@ -44,6 +44,7 @@ class Item extends \yii\easyii\components\ActiveRecord
             'time' => Yii::t('easyii', 'Date'),
             'slug' => Yii::t('easyii', 'Slug'),
             'tagNames' => Yii::t('easyii', 'Tags'),
+            'video_url' => Yii::t('easyii', 'Video URL')
         ];
     }
 
@@ -56,7 +57,7 @@ class Item extends \yii\easyii\components\ActiveRecord
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'title',
                 'ensureUnique' => true
-            ]
+            ],
         ];
     }
 
@@ -73,9 +74,16 @@ class Item extends \yii\easyii\components\ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
+            if ($insert) {
+                $this->owner = Yii::$app->user->identity->id;
+                $this->created_at = date('Y-m-d H:i:s');
+            } else {
+                $this->updated_at = date('Y-m-d H:i:s');
+            }
+            
             $settings = Yii::$app->getModule('admin')->activeModules['article']->settings;
             $this->short = StringHelper::truncate($settings['enableShort'] ? $this->short : strip_tags($this->text), $settings['shortMaxLength']);
-
+            
             if(!$insert && $this->image != $this->oldAttributes['image'] && $this->oldAttributes['image']){
                 @unlink(Yii::getAlias('@webroot').$this->oldAttributes['image']);
             }

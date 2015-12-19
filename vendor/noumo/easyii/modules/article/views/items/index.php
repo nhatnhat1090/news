@@ -18,8 +18,10 @@ $module = $this->context->module->id;
             <?php endif; ?>
             <th><?= Yii::t('easyii', 'Title') ?></th>
             <th width="120"><?= Yii::t('easyii', 'Views') ?></th>
+            <?php  if(IS_ROOT || (ROLE == 'admin')): ?>
             <th width="100"><?= Yii::t('easyii', 'Status') ?></th>
             <th width="120"></th>
+            <?php endif; ?>
         </tr>
         </thead>
         <tbody>
@@ -30,6 +32,7 @@ $module = $this->context->module->id;
                 <?php endif; ?>
                 <td><a href="<?= Url::to(['/admin/'.$module.'/items/edit', 'id' => $item->primaryKey]) ?>"><?= $item->title ?></a></td>
                 <td><?= $item->views ?></td>
+                <?php  if(IS_ROOT || (ROLE == 'admin')): ?>
                 <td class="status">
                     <?= Html::checkbox('', $item->status == Item::STATUS_ON, [
                         'class' => 'switch',
@@ -44,6 +47,7 @@ $module = $this->context->module->id;
                         <a href="<?= Url::to(['/admin/'.$module.'/items/delete', 'id' => $item->primaryKey]) ?>" class="btn btn-default confirm-delete" title="<?= Yii::t('easyii', 'Delete item') ?>"><span class="glyphicon glyphicon-remove"></span></a>
                     </div>
                 </td>
+                <?php endif; ?>
             </tr>
         <?php endforeach; ?>
         </tbody>

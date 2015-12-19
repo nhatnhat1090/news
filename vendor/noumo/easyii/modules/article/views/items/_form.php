@@ -14,6 +14,7 @@ $module = $this->context->module->id;
     'enableAjaxValidation' => true,
     'options' => ['enctype' => 'multipart/form-data', 'class' => 'model-form']
 ]); ?>
+<?= $form->field($model, 'type')->hiddenInput()->label(false);?>
 <?= $form->field($model, 'title') ?>
 
 <?php if($this->context->module->settings['articleThumb']) : ?>
@@ -23,10 +24,12 @@ $module = $this->context->module->id;
     <?php endif; ?>
     <?= $form->field($model, 'image')->fileInput() ?>
 <?php endif; ?>
-
+        
+<?= $form->field($model, 'video_url') ?>
+        
 <?php if($this->context->module->settings['enableShort']) : ?>
     <?= $form->field($model, 'short')->textarea() ?>
-<?php endif; ?>
+<?php endif; ?>  
 
 <?= $form->field($model, 'text')->widget(Redactor::className(),[
     'options' => [
@@ -43,7 +46,7 @@ $module = $this->context->module->id;
     <?= $form->field($model, 'tagNames')->widget(TagsInput::className()) ?>
 <?php endif; ?>
 
-<?php if(IS_ROOT) : ?>
+<?php if(IS_ROOT || (ROLE == 'admin')) : ?>
     <?= $form->field($model, 'slug') ?>
     <?= SeoForm::widget(['model' => $model]) ?>
 <?php endif; ?>

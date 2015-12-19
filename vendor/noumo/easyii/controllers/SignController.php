@@ -26,6 +26,7 @@ class SignController extends \yii\web\Controller
     {
         Yii::$app->user->logout();
         Yii::$app->cache->flush();
-        return $this->redirect(Yii::$app->homeUrl);
+        //return $this->redirect(Yii::$app->homeUrl);
+        return Yii::$app->getResponse()->redirect(['/admin/sign/in'])->send();
     }
 }
