@@ -6,8 +6,8 @@ $module = $this->context->module->id;
 ?>
 
 <ul class="nav nav-tabs" id="selectPostType">
-    <li class="active"><a data-type="1" href="javascript:void(0);">Tin thường</a></li>
-    <li><a data-type="2" href="javascript:void(0);">Tin ảnh</a></li>
-    <li><a data-type="3" href="javascript:void(0);">Tin video</a></li>
+    <li <?= ($model->type === 1) ? 'class="active"' : '' ?>><a data-type="1" href="<?= Url::to(['/admin/'.$module.'/items/create', 'id' => $model->cate, 'type' => 1]) ?>">Tin thường</a></li>
+    <li <?= ($model->type === 2) ? 'class="active"' : '' ?>><a data-type="2" href="<?= Url::to(['/admin/'.$module.'/items/create', 'id' => $model->cate, 'type' => 2]) ?>">Tin ảnh</a></li>
+    <li <?= ($model->type === 3) ? 'class="active"' : '' ?>><a data-type="3" href="<?= Url::to(['/admin/'.$module.'/items/create', 'id' => $model->cate, 'type' => 3]) ?>">Tin video</a></li>
 </ul>
 <br>

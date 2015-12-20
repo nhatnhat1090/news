@@ -23,23 +23,23 @@ $module = $this->context->module->id;
         <a href="<?= Url::to(['/admin/'.$module.'/items/clear-image', 'id' => $model->primaryKey]) ?>" class="text-danger confirm-delete" title="<?= Yii::t('easyii', 'Clear image')?>"><?= Yii::t('easyii', 'Clear image')?></a>
     <?php endif; ?>
     <?= $form->field($model, 'image')->fileInput() ?>
-<?php endif; ?>
-        
-<?= $form->field($model, 'video_url') ?>
-        
+<?php endif; ?>      
+<?php if($model->type === 3): ?>       
+    <?= $form->field($model, 'video_url') ?>  
+<?php endif; ?>         
 <?php if($this->context->module->settings['enableShort']) : ?>
     <?= $form->field($model, 'short')->textarea() ?>
 <?php endif; ?>  
-
-<?= $form->field($model, 'text')->widget(Redactor::className(),[
-    'options' => [
-        'minHeight' => 400,
-        'imageUpload' => Url::to(['/admin/redactor/upload', 'dir' => 'article'], true),
-        'fileUpload' => Url::to(['/admin/redactor/upload', 'dir' => 'article'], true),
-        'plugins' => ['fullscreen']
-    ]
-]) ?>
-
+<?php if($model->type === 1): ?>   
+    <?= $form->field($model, 'text')->widget(Redactor::className(),[
+        'options' => [
+            'minHeight' => 400,
+            'imageUpload' => Url::to(['/admin/redactor/upload', 'dir' => 'article'], true),
+            'fileUpload' => Url::to(['/admin/redactor/upload', 'dir' => 'article'], true),
+            'plugins' => ['fullscreen']
+        ]
+    ]) ?>
+<?php endif; ?>  
 <?= $form->field($model, 'time')->widget(DateTimePicker::className()); ?>
 
 <?php if($this->context->module->settings['enableTags']) : ?>

@@ -34,7 +34,7 @@ class Admin extends \yii\easyii\components\ActiveRecord implements \yii\web\Iden
             ['access_token', 'default', 'value' => null]
         ];
     }
-    
+
     public function roles()
     {
         return [

@@ -54,7 +54,9 @@ return [
     'Delete' => 'Xóa',
     'Turn On' => 'Bật',
     'Turn Off' => 'Tắt',
+    'Pin' => 'Đính lên đầu',
     'Status successfully changed' => 'Trạng thái đã thay đổi thành công',
+    'Pin successfully' => 'Bài viết đã được đính lên Top',
     'Add subcategory' => 'Thêm chuyên mục nhỏ',
     'Anti-spam check' => 'Kiểm tra chống spam',
     'Actions' => 'Các thao tác',
@@ -127,5 +129,7 @@ return [
     'Administrator' =>  'Quản trị viên',
     'Editor' =>  'Biên tập viên',
     'Assign role'   =>  'Thiết lập quyền',
-    'Assign categories' =>  'Chuyên mục hoạt động'
+    'Assign categories' =>  'Chuyên mục hoạt động',
+    'Approved' => 'Đã duyệt',
+    'Unapproved' => 'Chờ duyệt'
 ];

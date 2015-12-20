@@ -12,6 +12,10 @@ class Item extends \yii\easyii\components\ActiveRecord
 {
     const STATUS_OFF = 0;
     const STATUS_ON = 1;
+    const SCENARIO_POST_TEXT= 'text';
+    const SCENARIO_POST_PHOTO = 'photo';
+    const SCENARIO_POST_VIDEO = 'video';
+    public $cate;
 
     public static function tableName()
     {
@@ -21,11 +25,13 @@ class Item extends \yii\easyii\components\ActiveRecord
     public function rules()
     {
         return [
-            [['text', 'title'], 'required'],
+            ['title', 'required'],
+            ['text', 'required', 'on' => self::SCENARIO_POST_TEXT],
+            ['video_url', 'required', 'on' => self::SCENARIO_POST_VIDEO],
             [['title', 'short', 'text'], 'trim'],
             ['title', 'string', 'max' => 128],
             ['image', 'image'],
-            [['category_id', 'views', 'time', 'status'], 'integer'],
+            [['category_id', 'views', 'time', 'status', 'type'], 'integer'],
             ['time', 'default', 'value' => time()],
             ['slug', 'match', 'pattern' => self::$SLUG_PATTERN, 'message' => Yii::t('easyii', 'Slug can contain only 0-9, a-z and "-" characters (max: 128).')],
             ['slug', 'default', 'value' => null],
@@ -76,6 +82,7 @@ class Item extends \yii\easyii\components\ActiveRecord
         if (parent::beforeSave($insert)) {
             if ($insert) {
                 $this->owner = Yii::$app->user->identity->id;
+                $this->status = (IS_ROOT || (ROLE == 'admin')) ? 1 : 2;
                 $this->created_at = date('Y-m-d H:i:s');
             } else {
                 $this->updated_at = date('Y-m-d H:i:s');

@@ -78,7 +78,18 @@ class ItemsController extends Controller
             throw new \yii\web\ForbiddenHttpException('You cannot access this action');
         } 
         
-        $model = new Item;
+        $model = new Item();
+        $model->cate = $id;
+        $type = Yii::$app->getRequest()->getQueryParam('type');
+        if (($type == "2")) {
+            $model->type = 2;
+        } elseif ($type == "3") {
+            $model->scenario = Item::SCENARIO_POST_VIDEO;
+            $model->type = 3;
+        } else {
+            $model->scenario = Item::SCENARIO_POST_TEXT;
+            $model->type = 1;
+        }
 
         if ($model->load(Yii::$app->request->post())) {
             if(Yii::$app->request->isAjax){
@@ -99,7 +110,11 @@ class ItemsController extends Controller
 
                 if ($model->save()) {
                     $this->flash('success', Yii::t('easyii/article', 'Article created'));
-                    return $this->redirect(['/admin/'.$this->module->id.'/items/edit', 'id' => $model->primaryKey]);
+                    if ($model->type == "2") {
+                        return $this->redirect(['/admin/'.$this->module->id.'/items/edit', 'id' => $model->primaryKey]);
+                    } else {
+                        return $this->redirect(['/admin/'.$this->module->id.'/items/', 'id' => $model->cate]);
+                    }
                 } else {
                     $this->flash('error', Yii::t('easyii', 'Create error. {0}', $model->formatErrors()));
                     return $this->refresh();
@@ -119,9 +134,18 @@ class ItemsController extends Controller
         if(!($model = Item::findOne($id))){
             return $this->redirect(['/admin/'.$this->module->id]);
         }
-        if (!IS_ROOT && (ROLE != 'admin') && ($model->owner != Yii::$app->user->identity->id)) {
+        
+        if (!IS_ROOT && ((ROLE == 'admin') && (!in_array($model->category->tree, Yii::$app->user->identity->controlCates())) ) && ($model->owner != Yii::$app->user->identity->id)) {
             throw new \yii\web\ForbiddenHttpException('You cannot access this action');
         }
+        
+        if (($model->type == "1")) {
+            $model->scenario = Item::SCENARIO_POST_TEXT;
+        } elseif ($model->type == "3") {
+            $model->scenario = Item::SCENARIO_POST_VIDEO;
+        } 
+        
+        
         if ($model->load(Yii::$app->request->post())) {
             if(Yii::$app->request->isAjax){
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -158,7 +182,15 @@ class ItemsController extends Controller
         if(!($model = Item::findOne($id))){
             return $this->redirect(['/admin/'.$this->module->id]);
         }
-
+        
+         if (!IS_ROOT && ((ROLE == 'admin') && (!in_array($model->category->tree, Yii::$app->user->identity->controlCates())) ) && ($model->owner != Yii::$app->user->identity->id)) {
+            throw new \yii\web\ForbiddenHttpException('You cannot access this action');
+        }
+        
+        if ($model->type != '2') {
+            return $this->redirect(['/admin/'.$this->module->id]);
+        }
+        
         return $this->render('photos', [
             'model' => $model,
         ]);
@@ -210,6 +242,18 @@ class ItemsController extends Controller
     public function actionOff($id)
     {
         return $this->changeStatus($id, Item::STATUS_OFF);
+    }
+    
+    public function actionPin($id) {
+        if(($model = Item::findOne($id))){
+            $model->time = time();
+            $model->update();
+        }
+        else{
+            $this->error = Yii::t('easyii', 'Not found');
+        }
+
+        return $this->owner->formatResponse(Yii::t('easyii', 'Pin successfully'));
     }
     
 }
