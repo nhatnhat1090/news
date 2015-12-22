@@ -6,6 +6,7 @@ use yii\easyii\modules\feedback\models\Feedback as FeedbackModel;
 
 class SendController extends \yii\web\Controller
 {
+    public $rootActions = 'all';
     public function actionIndex()
     {
         $model = new FeedbackModel;

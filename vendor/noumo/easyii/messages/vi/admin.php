@@ -2,7 +2,7 @@
 return [
     'Control Panel' => 'Hệ thống quản trị',
     'Welcome' => 'Xin chào',
-    'Welcome to control panel, choose which section you want to manage in left menu.' => 'Chào mừng bạn truy cập vào hệ thống quản trị, vui lòng chọn phân vùng bạn muốn quản trị phía danh mục bên trái.',
+    'Welcome to control panel, choose which section you want to manage in left menu.' => 'Chào mừng bạn truy cập vào hệ thống quản trị, vui lòng chọn phân vùng bạn được phép quản trị phía sidebar bên trái.',
     'Incorrect username or password.' => 'Tên người dùng hoặc mật khẩu không đúng.',
     'You tried to login too often. Please wait 5 minutes.' => 'Bạn đã thử quá nhiều lần. Vui lòng đợi sau 5 phút nữa.',
     'Class does not exist' => 'Lớp không tồn tại',
@@ -131,5 +131,6 @@ return [
     'Assign role'   =>  'Thiết lập quyền',
     'Assign categories' =>  'Chuyên mục hoạt động',
     'Approved' => 'Đã duyệt',
-    'Unapproved' => 'Chờ duyệt'
+    'Unapproved' => 'Chờ duyệt',
+    'Repeat value' => 'Nhập lại giá trị',
 ];

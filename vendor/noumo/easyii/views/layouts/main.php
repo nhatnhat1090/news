@@ -2,6 +2,8 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\easyii\assets\AdminAsset;
+use yii\easyii\models\Setting;
+
 
 $asset = AdminAsset::register($this);
 $moduleName = $this->context->module->id;
@@ -25,7 +27,7 @@ $moduleName = $this->context->module->id;
             <div class="header">
                 <div class="logo">
                     <img src="<?= $asset->baseUrl ?>/img/logo_20.png">
-                    manggiaoduc.vn
+                    <?= Setting::get('backend_name') ? Setting::get('backend_name') : 'Admin Panel' ?>
                 </div>
                 <div class="nav">
                     <a href="<?= Url::to(['/']) ?>" class="pull-left"><i class="glyphicon glyphicon-home"></i> <?= Yii::t('easyii', 'Open site') ?></a>
@@ -35,7 +37,19 @@ $moduleName = $this->context->module->id;
             </div>
             <div class="main">
                 <div class="box sidebar">
-                    <?php foreach(Yii::$app->getModule('admin')->activeModules as $module) : ?>
+                    <?php 
+                        $modules = Yii::$app->getModule('admin')->activeModules;
+                        if (!IS_ROOT) {
+                            if (isset($modules['feedback'])) {
+                                unset($modules['feedback']);
+                            }
+                            
+                            if (isset($modules['carousel'])) {
+                                unset($modules['carousel']);
+                            }
+                        }
+                        foreach($modules as $module) : 
+                    ?>
                         <a href="<?= Url::to(["/admin/$module->name"]) ?>" class="menu-item <?= ($moduleName == $module->name ? 'active' : '') ?>">
                             <?php if($module->icon != '') : ?>
                                 <i class="glyphicon glyphicon-<?= $module->icon ?>"></i>
@@ -46,11 +60,12 @@ $moduleName = $this->context->module->id;
                             <?php endif; ?>
                         </a>
                     <?php endforeach; ?>
+                    <?php if(IS_ROOT) : ?>
                     <a href="<?= Url::to(['/admin/settings']) ?>" class="menu-item <?= ($moduleName == 'admin' && $this->context->id == 'settings') ? 'active' :'' ?>">
                         <i class="glyphicon glyphicon-cog"></i>
                         <?= Yii::t('easyii', 'Settings') ?>
                     </a>
-                    <?php if(IS_ROOT) : ?>
+                    
                         <a href="<?= Url::to(['/admin/modules']) ?>" class="menu-item <?= ($moduleName == 'admin' && $this->context->id == 'modules') ? 'active' :'' ?>">
                             <i class="glyphicon glyphicon-folder-close"></i>
                             <?= Yii::t('easyii', 'Modules') ?>

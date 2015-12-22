@@ -8,7 +8,7 @@ use yii\easyii\models\Setting;
 
 class SettingsController extends \yii\easyii\components\Controller
 {
-    public $rootActions = ['create', 'delete'];
+    public $rootActions = ['all'];
 
     public function actionIndex()
     {
@@ -57,8 +57,15 @@ class SettingsController extends \yii\easyii\components\Controller
             $this->flash('error', Yii::t('easyii', 'Not found'));
             return $this->redirect(['/admin/settings']);
         }
-
-        if ($model->load(Yii::$app->request->post())) {
+        
+        if ($model->name == 'root_password') {
+            $model->scenario = 'rootpassword';
+        }
+        $DataForm = Yii::$app->request->post();
+        if ($model->load($DataForm)) {
+            if ($model->name == 'root_password') {
+                $model->repeat_password = $DataForm['Setting']['repeat_password'];
+            }
             if(Yii::$app->request->isAjax){
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                 return ActiveForm::validate($model);

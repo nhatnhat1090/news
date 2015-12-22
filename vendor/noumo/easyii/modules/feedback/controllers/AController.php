@@ -12,6 +12,7 @@ class AController extends Controller
 {
     public $new = 0;
     public $noAnswer = 0;
+    public $rootActions = 'all';
 
     public function init()
     {

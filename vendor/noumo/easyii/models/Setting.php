@@ -15,7 +15,8 @@ class Setting extends \yii\easyii\components\ActiveRecord
     const CACHE_KEY = 'easyii_settings';
 
     static $_data;
-
+    public $repeat_password;
+    
     public static function tableName()
     {
         return 'easyii_settings';
@@ -26,6 +27,9 @@ class Setting extends \yii\easyii\components\ActiveRecord
         return [
             [['name', 'title', 'value'], 'required'],
             [['name', 'title', 'value'], 'trim'],
+            ['value', 'string', 'length' => [6, 12], 'on' => 'rootpassword'],
+            [['repeat_password'], 'compare', 'compareAttribute' => 'value', 'on' => 'rootpassword'], 
+            [['repeat_password'], 'required', 'on' => 'rootpassword'],
             ['name',  'match', 'pattern' => '/^[a-zA-Z][\w_-]*$/'],
             ['name', 'unique'],
             ['visibility', 'number', 'integerOnly' => true]
@@ -38,7 +42,8 @@ class Setting extends \yii\easyii\components\ActiveRecord
             'name' => Yii::t('easyii', 'Name'),
             'title' => Yii::t('easyii', 'Title'),
             'value' => Yii::t('easyii', 'Value'),
-            'visibility' => Yii::t('easyii', 'Only for developer')
+            'visibility' => Yii::t('easyii', 'Only for developer'),
+            'repeat_password' => Yii::t('easyii', 'Repeat value')
         ];
     }
 
@@ -79,5 +84,23 @@ class Setting extends \yii\easyii\components\ActiveRecord
             ]);
         }
         $setting->save();
+    }
+    
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if (!$this->isNewRecord && $this->name == 'root_password') {
+                $this->name = $this->oldAttributes['name'];
+                $this->value = $this->value != '' ? $this->hashPassword($this->value) : $this->oldAttributes['value'];
+            } 
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    private function hashPassword($password)
+    {
+        return sha1($password . self::get('root_auth_key') . self::get('password_salt'));
     }
 }

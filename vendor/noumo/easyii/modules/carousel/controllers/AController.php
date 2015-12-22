@@ -15,6 +15,7 @@ use yii\easyii\behaviors\StatusController;
 
 class AController extends Controller
 {
+    public $rootActions = 'all';
     public function behaviors()
     {
         return [

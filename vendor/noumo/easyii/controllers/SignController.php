@@ -18,6 +18,7 @@ class SignController extends \yii\web\Controller
         } else {
             return $this->render('in', [
                 'model' => $model,
+                'name' => models\Setting::get('backend_name') ? models\Setting::get('backend_name') : 'Admin Panel'
             ]);
         }
     }
