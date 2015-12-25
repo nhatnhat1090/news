@@ -16,10 +16,12 @@ class Mail
         $message = Yii::$app->mailer->compose($template, $data)
             ->setTo($toEmail)
             ->setSubject($data['subject']);
-
-        if(filter_var(Setting::get('robot_email'), FILTER_VALIDATE_EMAIL)){
-            $message->setFrom(Setting::get('robot_email'));
+        if ($options['from']) {
+            $message->setFrom($options['from']);
         }
+//        if(filter_var(Setting::get('robot_email'), FILTER_VALIDATE_EMAIL)){
+//            $message->setFrom(Setting::get('robot_email'));
+//        }
 
         if(!empty($options['replyTo']) && filter_var($options['replyTo'], FILTER_VALIDATE_EMAIL)){
             $message->setReplyTo($options['replyTo']);

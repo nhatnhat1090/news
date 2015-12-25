@@ -17,9 +17,9 @@ $this->title = Yii::t('easyii', 'Settings');
             <?php endif; ?>
             <th><?= Yii::t('easyii', 'Title') ?></th>
             <th><?= Yii::t('easyii', 'Value') ?></th>
-            <?php if(IS_ROOT) : ?>
+            <?php /* if(IS_ROOT) : ?>
                 <th width="30"></th>
-            <?php endif; ?>
+            <?php endif; */ ?>
         </tr>
         </thead>
         <tbody>
@@ -31,9 +31,9 @@ $this->title = Yii::t('easyii', 'Settings');
                 <?php endif; ?>
                 <td><a href="<?= Url::to(['/admin/settings/edit', 'id' => $setting->primaryKey]) ?>" title="<?= Yii::t('easyii', 'Edit') ?>"><?= $setting->title ?></a></td>
                 <td style="overflow: hidden"><?= ($setting->name == 'root_password') ? '******' : $setting->value; ?></td>
-                <?php if(IS_ROOT) : ?>
+                <?php /* if(IS_ROOT) : ?>
                     <td><a href="<?= Url::to(['/admin/settings/delete', 'id' => $setting->primaryKey]) ?>" class="glyphicon glyphicon-remove confirm-delete" title="<?= Yii::t('easyii', 'Delete item') ?>"></a></td>
-                <?php endif; ?>
+                <?php endif; */ ?>
             </tr>
         <?php endforeach; ?>
         </tbody>

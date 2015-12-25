@@ -87,13 +87,13 @@ class SettingsController extends \yii\easyii\components\Controller
         }
     }
 
-    public function actionDelete($id)
-    {
-        if(($model = Setting::findOne($id))){
-            $model->delete();
-        } else {
-            $this->error = Yii::t('easyii', 'Not found');
-        }
-        return $this->formatResponse(Yii::t('easyii', 'Setting deleted'));
-    }
+//    public function actionDelete($id)
+//    {
+//        if(($model = Setting::findOne($id))){
+//            $model->delete();
+//        } else {
+//            $this->error = Yii::t('easyii', 'Not found');
+//        }
+//        return $this->formatResponse(Yii::t('easyii', 'Setting deleted'));
+//    }
 }

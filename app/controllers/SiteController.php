@@ -19,6 +19,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        echo 'Đang phát triển';die();
+        //return $this->render('index');
     }
 }

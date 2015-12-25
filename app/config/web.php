@@ -25,6 +25,14 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
+            'transport' => [
+				'class' => 'Swift_SmtpTransport',
+				'host' => 'smtp.gmail.com',
+				'username' => 'leenhatsmile@gmail.com',
+				'password' => 'nevergiveupmrsmile',
+				'port' => '465',
+				'encryption' => 'ssl',
+			],
         ],
         'urlManager' => [
             'rules' => [
@@ -62,7 +70,7 @@ $config = [
     'params' => $params,
 ];
 
-if (YII_ENV_DEV) {
+if (YII_ENV_DEV) { 
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = 'yii\debug\Module';

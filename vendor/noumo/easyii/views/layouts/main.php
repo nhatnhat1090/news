@@ -65,11 +65,13 @@ $moduleName = $this->context->module->id;
                         <i class="glyphicon glyphicon-cog"></i>
                         <?= Yii::t('easyii', 'Settings') ?>
                     </a>
-                    
+                    <?php /*
                         <a href="<?= Url::to(['/admin/modules']) ?>" class="menu-item <?= ($moduleName == 'admin' && $this->context->id == 'modules') ? 'active' :'' ?>">
                             <i class="glyphicon glyphicon-folder-close"></i>
                             <?= Yii::t('easyii', 'Modules') ?>
                         </a>
+                     * 
+                     */ ?>
                         <a href="<?= Url::to(['/admin/admins']) ?>" class="menu-item <?= ($moduleName == 'admin' && $this->context->id == 'admins') ? 'active' :'' ?>">
                             <i class="glyphicon glyphicon-user"></i>
                             <?= Yii::t('easyii', 'Admins') ?>

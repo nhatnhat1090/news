@@ -7,6 +7,10 @@ use yii\easyii\behaviors\SeoBehavior;
 use yii\easyii\behaviors\Taggable;
 use yii\easyii\models\Photo;
 use yii\helpers\StringHelper;
+use yii\easyii\helpers\Mail;
+use yii\easyii\models\Setting;
+use yii\easyii\models\Admin;
+use yii\helpers\Url;
 
 class Item extends \yii\easyii\components\ActiveRecord
 {
@@ -100,6 +104,41 @@ class Item extends \yii\easyii\components\ActiveRecord
             return false;
         }
     }
+    
+    public function afterSave($insert, $changedAttributes)
+    {
+            parent::afterSave($insert, $changedAttributes);
+            if ($insert) {
+                $receivers = [Setting::get('admin_email')];
+                $admins = Admin::find()->where(['role' => 'admin'])->all();
+
+                foreach ($admins as $item) {
+                    if ($item->cate_manage && in_array($this->category->tree, explode(',', $item->cate_manage))) {
+                        $receivers[] = $item->email;
+                    }
+                }
+                $subject = 'Thông báo biên tập viên đăng bài mới' . '[' .  date('d/m/Y H:i'). ']';
+                $message = 'Thành viên <b>' . Yii::$app->user->identity->username . '</b> vừa đăng một bài viết mới';
+                //Case editor create a new article
+                if (ROLE == 'editor') {
+                    foreach ($receivers as $to) {
+                        $this->sendNotify($to, $subject, $message);
+                    }  
+                }
+            } else {
+                //Case Admin or Root approve or unapprove an article
+                $owner = Admin::findOne($this->owner);
+                if ($owner && ($owner->role == 'editor') && isset($changedAttributes['status'])) {
+                    $subject = 'Thông báo quản trị đã ';
+                    $subject .= ($this->status == '1') ? 'duyệt bài viết' : 'hủy bài viết'; 
+                    $subject .= '[' .  date('d/m/Y H:i'). ']';
+                    $message = 'Quản trị viên <b>' . Yii::$app->user->identity->username . '</b> vừa ';
+                    $message .= ($this->status == '1') ? 'duyệt bài viết' : 'hủy bài viết';
+                    $this->sendNotify($owner->email, $subject, $message);
+                }
+            }
+            
+    }
 
     public function afterDelete()
     {
@@ -112,5 +151,20 @@ class Item extends \yii\easyii\components\ActiveRecord
         foreach($this->getPhotos()->all() as $photo){
             $photo->delete();
         }
+    }
+    
+    public function sendNotify($sendTo, $subject, $message)
+    {
+        return Mail::send(
+            $sendTo,
+            $subject,
+            '@easyii/modules/article/mail/vi/notify',
+            [
+                'postTitle' => $this->title, 
+                'link' => Url::to(['/admin/article/items', 'id' => $this->category_id], true),
+                'message' => $message
+            ],
+            ['replyTo' => Setting::get('admin_email'), 'from' => [Setting::get('robot_email') => 'Mạng giáo dục Việt Nam']]
+        );
     }
 }
