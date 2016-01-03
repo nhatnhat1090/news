@@ -66,6 +66,18 @@ class ItemsController extends Controller
             'model' => $model
         ]);
     }
+    
+    public function actionTop()
+    {    
+        if(!IS_ROOT) {
+            throw new \yii\web\ForbiddenHttpException('You cannot access this action');
+        } 
+        $data = Item::find()->where(['head' => 1])->status(Item::STATUS_ON)->sortDate()->all();
+        
+        return $this->render('head', [
+            'data' => $data
+        ]);
+    }
 
 
     public function actionCreate($id)
@@ -254,6 +266,29 @@ class ItemsController extends Controller
         }
 
         return $this->owner->formatResponse(Yii::t('easyii', 'Pin successfully'));
+    }
+    
+     public function actionHead($id) {
+        if(!IS_ROOT) {
+            throw new \yii\web\ForbiddenHttpException('You cannot access this action');
+        } 
+        
+        if(($model = Item::findOne($id))){
+            $model->head = ($model->head == 0) ? 1 : 0;
+            $model->update();
+            if ($model->head == 1) {
+                $headnews = Item::find()->where(['head' => 1])->status(Item::STATUS_ON)->orderBy(['updated_at' => 'SORT_ASC'])->all();
+                if (count($headnews) > 4) {
+                    $headnews[0]->head = 0;
+                    $headnews[0]->update();
+                }
+            }
+        }
+        else{
+            $this->error = Yii::t('easyii', 'Not found');
+        }
+
+        return $this->owner->formatResponse(Yii::t('easyii', ($model->head == 1) ? 'Set head successfully' : 'Unset head successfully'));
     }
     
 }

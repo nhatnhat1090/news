@@ -6,8 +6,10 @@ use yii\data\ActiveDataProvider;
 use yii\easyii\components\API;
 use yii\easyii\models\Tag;
 use yii\easyii\modules\article\models\Item;
+use yii\easyii\modules\article\models\Category;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
+use yii\helpers\ArrayHelper;
 
 class CategoryObject extends \yii\easyii\components\ApiObject
 {
@@ -20,7 +22,7 @@ class CategoryObject extends \yii\easyii\components\ApiObject
     private $_items;
 
     public function getTitle(){
-        return LIVE_EDIT ? API::liveEdit($this->model->title, $this->editLink) : $this->model->title;
+        return $this->model->title;
     }
 
     public function pages($options = []){
@@ -40,8 +42,8 @@ class CategoryObject extends \yii\easyii\components\ApiObject
             if(Yii::$app->getModule('admin')->activeModules['article']->settings['enableTags']){
                 $with[] = 'tags';
             }
-
-            $query = Item::find()->with('seo')->where(['category_id' => $this->id])->status(Item::STATUS_ON)->sortDate();
+            $cateRelatives = Category::find()->select('category_id')->where(['tree' => $this->id])->sort()->asArray()->all();
+            $query = Item::find()->with('seo')->where(['category_id' => ArrayHelper::map($cateRelatives, 'category_id', 'category_id')])->status(Item::STATUS_ON)->sortDate();
 
             if(!empty($options['where'])){
                 $query->andFilterWhere($options['where']);

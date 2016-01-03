@@ -24,15 +24,15 @@ class ArticleObject extends \yii\easyii\components\ApiObject
     private $_photos;
 
     public function getTitle(){
-        return LIVE_EDIT ? API::liveEdit($this->model->title, $this->editLink) : $this->model->title;
+        return $this->model->title;
     }
 
     public function getShort(){
-        return LIVE_EDIT ? API::liveEdit($this->model->short, $this->editLink) : $this->model->short;
+        return $this->model->short;
     }
 
     public function getText(){
-        return LIVE_EDIT ? API::liveEdit($this->model->text, $this->editLink, 'div') : $this->model->text;
+        return $this->model->text;
     }
 
     public function getCat(){

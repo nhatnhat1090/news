@@ -26,6 +26,7 @@ class ArticlesController extends \yii\web\Controller
 
     public function actionView($slug)
     {
+        echo "Under construction";die();
         $article = Article::get($slug);
         if(!$article){
             throw new \yii\web\NotFoundHttpException('Article not found.');
