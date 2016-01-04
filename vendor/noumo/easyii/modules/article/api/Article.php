@@ -9,6 +9,7 @@ use yii\easyii\modules\article\models\Category;
 use yii\easyii\modules\article\models\Item;
 use yii\easyii\widgets\Fancybox;
 use yii\widgets\LinkPager;
+use yii\helpers\ArrayHelper;
 
 /**
  * Article module API
@@ -117,6 +118,40 @@ class Article extends \yii\easyii\components\API
             return $this->_last;
         }
     }
+    
+    public function api_byRoot($limit = 1, $id)
+    {
+
+        $result = [];
+
+        $with = ['seo'];
+        if(Yii::$app->getModule('admin')->activeModules['article']->settings['enableTags']){
+            $with[] = 'tags';
+        }
+        $cate = Category::find()->select('category_id')->where(['tree' => $id])->sort()->asArray()->all();
+        $query = Item::find()->with($with)->status(Item::STATUS_ON)->sortDate()->limit($limit)->where(['category_id' => ArrayHelper::map($cate, 'category_id', 'category_id')]);
+        
+//        if($where){
+//            $query->andFilterWhere($where);
+//        }
+
+        foreach($query->all() as $item){
+            $result[] = new ArticleObject($item);
+        }
+
+        return $result;
+
+    }
+    
+    public function api_CateChild($id)
+    {
+        $result = [];
+        $category = Category::find()->where(['and', 'tree=:tree', 'depth <> 0'], [':tree' => $id])->status(Item::STATUS_ON)->all();
+        foreach($category as $item){
+            $result[] = new CategoryObject($item);
+        }
+        return $result;
+    }
 
     public function api_get($id_slug)
     {
@@ -150,6 +185,7 @@ class Article extends \yii\easyii\components\API
 
         return $category ? new CategoryObject($category) : null;
     }
+    
 
     private function findItem($id_slug)
     {
