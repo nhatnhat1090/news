@@ -17,23 +17,25 @@ class ArticlesController extends \yii\web\Controller
         if(!$cat){
             throw new \yii\web\NotFoundHttpException('Article category not found.');
         }
-
+        
         return $this->render('cat', [
             'cat' => $cat,
-            'items' => $cat->items(['tags' => $tag, 'pagination' => ['pageSize' => 2]])
+            'items' => $cat->items(['tags' => $tag, 'pagination' => ['pageSize' => 20]])
         ]);
     }
 
     public function actionView($slug)
     {
-        echo "Under construction";die();
+        
         $article = Article::get($slug);
         if(!$article){
             throw new \yii\web\NotFoundHttpException('Article not found.');
         }
+        $related = Article::related($article->cat->category_id, $article->model->item_id, 5);
 
         return $this->render('view', [
-            'article' => $article
+            'article' => $article,
+            'related' => $related
         ]);
     }
 

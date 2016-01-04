@@ -38,6 +38,7 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
             Trường đại học sẽ không được đào tạo trình độ cao đẳng - ‘Hội nghị Diên Hồng’ trước nguy cơ môn Lịch sử bị xoá sổ
         </div>
     </div>
+    <?php if (count($headnews) == 4): ?>
     <div class="container-fluid">
         <div class="row top-event__container">
             <div class="top-event__navigation-container__tablet">
@@ -59,7 +60,7 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
                 </div>
                 <div class="col-xs-12 col-md-6 top-event__event-column">
                     <div class="top-event__event top-event__event-half-vertical">
-                        <a href="<?= Url::to(['articles/view', 'slug' => $headnews[0]->slug]); ?>" title="">
+                        <a href="<?= Url::to(['articles/view', 'slug' => $headnews[1]->slug]); ?>" title="">
                             <?= Html::img($headnews[1]->thumb(547, 259)) ?>
                             <div class="top-event__event-text">
                                 <h4><?= $headnews[1]->cat->title ?></h4>
@@ -71,7 +72,7 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
                     <div>
                         <div class="col-xs-12 col-sm-6 top-event__event-column">
                             <div class="top-event__event top-event__event-half-vertical-horizontal">
-                                <a href="#" title="">
+                                <a href="<?= Url::to(['articles/view', 'slug' => $headnews[2]->slug]); ?>" title="">
                                     <?= Html::img($headnews[2]->thumb(270, 198)) ?>
                                     <div class="top-event__event-text">
                                         <h4><?= $headnews[2]->cat->title ?></h4>
@@ -83,7 +84,7 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
                         </div>
                         <div class="col-xs-12 col-sm-6 top-event__event-column">
                             <div class="top-event__event top-event__event-half-vertical-horizontal">
-                                <a href="#" title="">
+                                <a href="<?= Url::to(['articles/view', 'slug' => $headnews[3]->slug]); ?>" title="">
                                     <?= Html::img($headnews[3]->thumb(270, 198)) ?>
                                     <div class="top-event__event-text">
                                         <h4><?= $headnews[3]->cat->title ?></h4>
@@ -98,6 +99,7 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
             </div>
         </div>
     </div>
+    <?php endif; ?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12 col-md-8 gb-column gb-column__big">
@@ -106,7 +108,7 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
                     <div class="news-group__header news-group__header__orange-border">
                         <h2><?= $cate1->title ?></h2>
                         <div class="news-group__header__buttons-container">
-                            <a class="button-item button-item__view-all" href="#" title="">Xem toàn bộ </a>
+                            <a class="button-item button-item__view-all" href="<?= Url::to(['/articles/cat', 'slug' => $cate1->slug]) ?>" title="">Xem toàn bộ </a>
                         </div>
                     </div>
                     <div class="news-group__content">
@@ -117,7 +119,7 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
                                         <?= Html::a(Html::img($pack1[0]->thumb(359, 176)), ['articles/view', 'slug' => $pack1[0]->slug]) ?>
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
-                                        <?= Html::a($pack1[0]->title, ['articles/view', 'slug' => $pack1[0]->slug]) ?>
+                                        <?= Html::a('<strong>' . $pack1[0]->title . '</strong>', ['articles/view', 'slug' => $pack1[0]->slug]) ?>
                                         <span><?= date('d/m/Y', $pack1[0]->time) ?></span>
                                         <p>
                                             <?= $pack1[0]->short; ?>
@@ -135,7 +137,7 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
                                             <?= Html::img($pack1[1]->thumb(105, 70)) ?>
                                         </div>
                                         <div class="col-xs-8">
-                                           <?= $pack1[1]->title ?>
+                                            <strong><?= $pack1[1]->title ?></strong>
                                         </div>
                                     </a>
                                     <?php if (isset($pack1[2])):  ?>
@@ -144,7 +146,7 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
                                             <?= Html::img($pack1[2]->thumb(105, 70)) ?>
                                         </div>
                                         <div class="col-xs-8">
-                                            <?= $pack1[2]->title ?>
+                                            <strong><?= $pack1[2]->title ?></strong>
                                         </div>
                                     </a>
                                     <?php endif; ?>
@@ -165,7 +167,7 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
                         <h2><?= $cate2->title ?></h2>
                         <div class="news-group__header__buttons-container">
                             <?php foreach (Article::CateChild($cate2->id) as $child): ?>
-                                <a class="button-item button-item__normal" href="#" title=""><?= $child->title ?></a>
+                                <a class="button-item button-item__normal" href="<?= Url::to(['/articles/cat', 'slug' => $child->slug]) ?>" title=""><?= $child->title ?></a>
                             <?php endforeach; ?>
                         </div>
                     </div>
@@ -175,12 +177,12 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
                                 <div class="row">
                                     <div class="home-news-item__container col-xs-12 col-sm-6">
                                         <?= Html::a(Html::img($pack2[0]->thumb(359, 176)), ['articles/view', 'slug' => $pack2[0]->slug]) ?>
-                                        <h3><?= $pack2[0]->title ?></h3>
+                                        <h3><strong><?= $pack2[0]->title ?></strong></h3>
                                         <span><?= date('d/m/Y', $pack2[0]->time) ?></span>
                                     </div>
                                     <div class="home-news-item__container col-xs-12 col-sm-6">
                                          <?= Html::a(Html::img($pack2[1]->thumb(359, 176)), ['articles/view', 'slug' => $pack2[1]->slug]) ?>
-                                        <h3><?= $pack2[1]->title ?></h3>
+                                        <h3><strong><?= $pack2[1]->title ?></strong></h3>
                                         <span><?= date('d/m/Y', $pack2[1]->time) ?></span>
                                     </div>
                                 </div>
@@ -194,15 +196,15 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
                                             <?= Html::img($pack2[2]->thumb(105, 70)) ?>
                                         </div>
                                         <div class="col-xs-8">
-                                            <?= $pack2[2]->title ?>
+                                            <strong><?= $pack2[2]->title ?></strong>
                                         </div>
                                     </a>
-                                    <a href="#" title="" class="home-news-item__container home-news-item__item__small col-xs-12 col-sm-6">
+                                    <a href="<?= Url::to(['articles/view', 'slug' => $pack2[3]->slug]); ?>" title="" class="home-news-item__container home-news-item__item__small col-xs-12 col-sm-6">
                                         <div class="col-xs-4">
                                             <?= Html::img($pack2[3]->thumb(105, 70)) ?>
                                         </div>
                                         <div class="col-xs-8">
-                                            <?= $pack2[3]->title ?>
+                                            <strong><?= $pack2[3]->title ?></strong>
                                         </div>
                                     </a>
                                 </div>
@@ -219,7 +221,7 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
                     <div class="news-group__header news-group__header__red-border">
                         <h2><?= $cate3->title ?></h2>
                         <div class="news-group__header__buttons-container">
-                            <a class="button-item button-item__view-all" href="#" title="">Xem toàn bộ </a>
+                            <a class="button-item button-item__view-all" href="<?= Url::to(['/articles/cat', 'slug' => $cate3->slug]) ?>" title="">Xem toàn bộ </a>
                         </div>
                     </div>
                     <div class="news-group__content">
@@ -232,7 +234,7 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
                                                  <?= Html::a(Html::img($item->thumb(165, 110)), ['articles/view', 'slug' => $item->slug]) ?>
                                             </div>
                                             <div class="col-xs-6">
-                                                <h4><?= $item->title ?></h4>
+                                                <h4><strong><?= $item->title ?></strong></h4>
                                                 <span><?= date('d/m/Y', $item->time) ?></span>
                                             </div>
                                         </div>
@@ -246,7 +248,7 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
                     <div class="news-group__header news-group__header__green-border">
                         <h2><?= $cate4->title ?></h2>
                         <div class="news-group__header__buttons-container">
-                            <a class="button-item button-item__view-all" href="#" title="">Xem toàn bộ </a>
+                            <a class="button-item button-item__view-all" href="<?= Url::to(['/articles/cat', 'slug' => $cate4->slug]) ?>" title="">Xem toàn bộ </a>
                         </div>
                     </div>
                     <div class="news-group__content">
@@ -256,7 +258,7 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
                                     <?php foreach ($pack4 as $item): ?>
                                         <a href="<?= Url::to(['articles/view', 'slug' => $item->slug]); ?>" title="" class="home-news-item__container col-xs-6 col-sm-3">
                                             <?= Html::img($item->thumb(180, 113)) ?>
-                                            <span><?= $item->title ?></span>
+                                            <span><strong><?= $item->title ?></strong></span>
                                         </a>
                                     <?php endforeach; ?>
                                 </div>
@@ -268,7 +270,7 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
                     <div class="news-group__header news-group__header__blue-border">
                         <h2><?= $cate5->title ?></h2>
                         <div class="news-group__header__buttons-container">
-                            <a class="button-item button-item__view-all" href="#" title="">Xem toàn bộ </a>
+                            <a class="button-item button-item__view-all" href="<?= Url::to(['/articles/cat', 'slug' => $cate5->slug]) ?>" title="">Xem toàn bộ </a>
                         </div>
                     </div>
                     <div class="news-group__content">
@@ -281,7 +283,7 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
                                             <?= Html::a(Html::img($item->thumb(165, 110)), ['articles/view', 'slug' => $item->slug]) ?>
                                         </div>
                                         <div class="col-xs-6">
-                                            <h4><?= $item->title ?></h4>
+                                            <h4><strong><?= $item->title ?></strong></h4>
                                             <span><?= date('d/m/Y', $item->time) ?></span>
                                         </div>
                                     </div>
@@ -333,41 +335,41 @@ $pack5 = $cate5->items(['pagination' => ['pageSize' => 4]]);
                     <div class="client-ask__list">
                         <div class="client-ask__item">
                             <div class="client-ask__question">
-                                Bé nhà mình 4 tuổi có vết chàm từ nhỏ có dùng explaq được không?
+                                Những kiến thức gì cần trang bị khi đi du học?
                             </div>
                             <div class="client-ask__author">
                                 <span class="client-ask__author-label">Được đăng bởi</span>
                                 <span class="client-ask__author-name">Trần Hạo Dân</span>
                             </div>
                             <div class="client-ask__social">
-                                <span class="client-ask__social-date">6 months ago</span>
-                                <span class="client-ask__social-seen">703</span>
+                                <span class="client-ask__social-date">1 tháng trước</span>
+                                <span class="client-ask__social-seen">103</span>
                             </div>
                         </div>
                         <div class="client-ask__item">
                             <div class="client-ask__question">
-                                Bé nhà mình 4 tuổi có vết chàm từ nhỏ có dùng explaq được không?
+                                Những trường đại học nào học MBA tốt nhất?
                             </div>
                             <div class="client-ask__author">
                                 <span class="client-ask__author-label">Được đăng bởi</span>
-                                <span class="client-ask__author-name">Trần Hạo Dân</span>
+                                <span class="client-ask__author-name">Lee Nhật</span>
                             </div>
                             <div class="client-ask__social">
-                                <span class="client-ask__social-date">6 months ago</span>
-                                <span class="client-ask__social-seen">703</span>
+                                <span class="client-ask__social-date">2 tháng trước</span>
+                                <span class="client-ask__social-seen">89</span>
                             </div>
                         </div>
                         <div class="client-ask__item">
                             <div class="client-ask__question">
-                                Bé nhà mình 4 tuổi có vết chàm từ nhỏ có dùng explaq được không?
+                                Làm thế nào để quyên góp cho hội khuyến học?
                             </div>
                             <div class="client-ask__author">
                                 <span class="client-ask__author-label">Được đăng bởi</span>
-                                <span class="client-ask__author-name">Trần Hạo Dân</span>
+                                <span class="client-ask__author-name">Lê Anh Tùng</span>
                             </div>
                             <div class="client-ask__social">
-                                <span class="client-ask__social-date">6 months ago</span>
-                                <span class="client-ask__social-seen">703</span>
+                                <span class="client-ask__social-date">3 tháng trước</span>
+                                <span class="client-ask__social-seen">68</span>
                             </div>
                         </div>
                     </div>

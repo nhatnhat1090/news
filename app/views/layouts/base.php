@@ -1,5 +1,5 @@
 <?php
-
+use yii\helpers\Url;
 use yii\easyii\modules\article\api\Article;
 use yii\helpers\Html;
 
@@ -18,15 +18,15 @@ function renderNode($node, $boderColor) {
     if (!count($node->children)) {
         //$html = '<li>'.Html::a($node->title, ['/articles/cat', 'slug' => $node->slug]).'</li>';
         $html = '<li class="main-menu__li__level-one">';
-        $html .= '<a class="main-menu__a__level-one main-menu__a__border-' . $boderColor . '" href="#" title="">' . $node->title . '</a>';
+        $html .= '<a class="main-menu__a__level-one main-menu__a__border-' . $boderColor . '" href="' . Url::to(['/articles/cat', 'slug' => $node->slug]). '" title="">' . $node->title . '</a>';
         $html .= '</li>';
     } else {
         $html = '<li class="main-menu__li__level-one main-menu__li__container">';
-        $html .= '<a class="main-menu__a__level-one main-menu__a__border-' . $boderColor . '" href="#" title="">' . $node->title . '</a>';
+        $html .= '<a class="main-menu__a__level-one main-menu__a__border-' . $boderColor . '" href="' . Url::to(['/articles/cat', 'slug' => $node->slug]). '" title="">' . $node->title . '</a>';
         $html .= '<ul class="main-menu__ul__child">';
         foreach ($node->children as $child) {
             $html .= '<li class="main-menu__li__level-two">';
-            $html .= '<a href="#" title="">' . $child->title . '</a>';
+            $html .= '<a href="' . Url::to(['/articles/cat', 'slug' => $child->slug]). '" title="">' . $child->title . '</a>';
             $html .= '</li>';
         }
         $html .= '</ul>';
@@ -56,7 +56,7 @@ function renderNode($node, $boderColor) {
                     <div class="gb-view-container container-fluid">
                         <div class="row">
                             <div class="col-xs-12 col-md-4">
-                                <a class="header-container__logo-link" href="#" title="">
+                                <a class="header-container__logo-link" href="<?= Url::to(['/']) ?>" title="">
                                     <img class="header-container__logo-img" src="<?= $asset->baseUrl ?>/img/logo.png" alt=""/>
                                 </a>
                             </div>
@@ -72,7 +72,7 @@ function renderNode($node, $boderColor) {
                     <div class="gb-view-container">
                         <ul class="main-menu__ul">
                             <li class="main-menu__li__level-one">
-                                <a class="main-menu__a__level-one main-menu__a__border-orange main-menu__active-menu-item" href="#" title="">Trang chủ</a>
+                                <a class="main-menu__a__level-one main-menu__a__border-orange main-menu__active-menu-item" href="<?= Url::to(['/']) ?>" title="">Trang chủ</a>
                             </li>
 <?php foreach (Article::tree() as $key => $node)
     echo renderNode($node, isset($boderColor[$key]) ? $boderColor[$key] : 'blue' ); ?>
@@ -177,34 +177,18 @@ function renderNode($node, $boderColor) {
                                     <h3 class="footer__group-title">Danh mục</h3>
 
                                     <ul class="footer__menu-container">
+                                        <?php foreach (Article::catRoot() as $item): ?>
                                         <li class="footer__menu-item">
-                                            <a href="#" title="">Đổi mới giáo dục</a>
+                                             <?= Html::a($item['title'], ['articles/cat', 'slug' => $item['slug']]) ?>
                                         </li>
-                                        <li class="footer__menu-item">
-                                            <a href="#" title="">Du học</a>
-                                        </li>
-                                        <li class="footer__menu-item">
-                                            <a href="#" title="">Nhìn ra thế giới</a>
-                                        </li>
-                                        <li class="footer__menu-item">
-                                            <a href="#" title="">Góc VTV7</a>
-                                        </li>
-                                        <li class="footer__menu-item">
-                                            <a href="#" title="">Câu chuyện giáo dục</a>
-                                        </li>
-                                        <li class="footer__menu-item">
-                                            <a href="#" title="">Góc hỏi đáp</a>
-                                        </li>
-                                        <li class="footer__menu-item">
-                                            <a href="#" title="">Edu_link</a>
-                                        </li>
+                                        <?php endforeach; ?>
                                     </ul>
                                 </div>
                                 <div class="col-xs-12 col-sm-6 col-md-4">
                                     <h3 class="footer__group-title">Liên hệ</h3>
                                     <div class="footer__contact-container">
                                         <div class="footer__contact-item">
-                                            <span class="footer__contact-text footer__contact-location">Tầng 3, số 75 Phương Mai, Phường Phương Mai, Đống Đa</span>
+                                            <span class="footer__contact-text footer__contact-location">21 Nguyễn Huy Tự, phường Bạch Đằng, Hoàn Kiếm, Hà Nội</span>
                                         </div>
                                         <div class="footer__contact-item">
                                             <span class="footer__contact-text footer__contact-phone">18006168</span>
@@ -227,7 +211,7 @@ function renderNode($node, $boderColor) {
                                     </div>
                                     <div class="footer__contact-text-information">
                                         Giấy phép báo điện tử số : 236/GP-BTTT.<br/>
-                                        Tổng Biên tập: <b>Ngô Việt Anh</b><br/>
+                                        Tổng Biên tập: <b>Nguyễn Thị Hương</b><br/>
                                         Cơ quan chủ quản: Hội xuất bản Việt Nam<br/>
                                         Tòa soạn: D29 Trần Thái Tông, Cầu Giấy<br/>
                                         Chỉ được phát hành lại thông tin website khi có sự đồng ý bằng văn bản của báo<br/>

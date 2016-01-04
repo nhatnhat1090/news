@@ -37,13 +37,19 @@ class CategoryObject extends \yii\easyii\components\ApiObject
     {
         if(!$this->_items){
             $this->_items = [];
-
+            $cates = [];
             $with = ['seo'];
             if(Yii::$app->getModule('admin')->activeModules['article']->settings['enableTags']){
                 $with[] = 'tags';
             }
-            $cateRelatives = Category::find()->select('category_id')->where(['tree' => $this->id])->sort()->asArray()->all();
-            $query = Item::find()->with('seo')->where(['category_id' => ArrayHelper::map($cateRelatives, 'category_id', 'category_id')])->status(Item::STATUS_ON)->sortDate();
+            if ($this->depth == 0) {
+                $cateRelatives = Category::find()->select('category_id')->where(['tree' => $this->id])->sort()->asArray()->all();
+                $cates = ArrayHelper::map($cateRelatives, 'category_id', 'category_id');
+            } else {
+                $cates[] = $this->id;
+            }
+
+            $query = Item::find()->with('seo')->where(['category_id' => $cates])->status(Item::STATUS_ON)->sortDate();
 
             if(!empty($options['where'])){
                 $query->andFilterWhere($options['where']);

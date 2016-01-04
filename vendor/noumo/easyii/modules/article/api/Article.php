@@ -51,6 +51,11 @@ class Article extends \yii\easyii\components\API
     {
         return Category::cats();
     }
+    
+    public function api_catRoot()
+    {
+        return Category::getRootCates();
+    }
 
     public function api_items($options = [])
     {
@@ -146,10 +151,21 @@ class Article extends \yii\easyii\components\API
     public function api_CateChild($id)
     {
         $result = [];
-        $category = Category::find()->where(['and', 'tree=:tree', 'depth <> 0'], [':tree' => $id])->status(Item::STATUS_ON)->all();
+        $category = Category::find()->where(['and', 'tree=:tree', 'depth <> 0'], [':tree' => $id])->status(Category::STATUS_ON)->all();
         foreach($category as $item){
             $result[] = new CategoryObject($item);
         }
+        return $result;
+    }
+    
+    public function api_CateParent($tree, $id)
+    {
+        $result = null;
+        $category = Category::find()->where(['and', 'tree=:tree', 'depth = 0', 'category_id <> :id'], [':tree' => $tree, ':id' => $id])->status(Category::STATUS_ON)->one();
+        if($category) {
+            $result = new CategoryObject($category);
+        }
+        
         return $result;
     }
 
@@ -159,6 +175,18 @@ class Article extends \yii\easyii\components\API
             $this->_item[$id_slug] = $this->findItem($id_slug);
         }
         return $this->_item[$id_slug];
+    }
+    
+    public function api_related($id_cate, $id_exclude, $limit)
+    {
+        $result = [];
+        $related = Category::findOne($id_cate)->hasMany(Item::className(), ['category_id' => 'category_id'])->where(['not', ['item_id' => $id_exclude]])->sortDate()->limit($limit)->all();
+        
+        foreach($related as $item){
+            $result[] = new ArticleObject($item);
+        }
+        
+        return $result;
     }
 
     public function api_plugin($options = [])

@@ -44,7 +44,7 @@ class ArticleObject extends \yii\easyii\components\ApiObject
     }
 
     public function getDate(){
-        return Yii::$app->formatter->asDate($this->time);
+        return date('d/m/Y', $this->time);
     }
 
     public function getPhotos()
