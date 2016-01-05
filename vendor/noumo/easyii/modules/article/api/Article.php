@@ -135,10 +135,6 @@ class Article extends \yii\easyii\components\API
         }
         $cate = Category::find()->select('category_id')->where(['tree' => $id])->sort()->asArray()->all();
         $query = Item::find()->with($with)->status(Item::STATUS_ON)->sortDate()->limit($limit)->where(['category_id' => ArrayHelper::map($cate, 'category_id', 'category_id')]);
-        
-//        if($where){
-//            $query->andFilterWhere($where);
-//        }
 
         foreach($query->all() as $item){
             $result[] = new ArticleObject($item);
@@ -146,6 +142,20 @@ class Article extends \yii\easyii\components\API
 
         return $result;
 
+    }
+    
+    public function api_topOfRootCate($id)
+    {
+        $record = null;
+        $cate = Category::find()->select('category_id')->where(['tree' => $id])->sort()->asArray()->all();
+        $query = Item::find()->status(Item::STATUS_ON)->sortDate()->where(['category_id' => ArrayHelper::map($cate, 'category_id', 'category_id'), 'head' => 1]);
+        $query1 = Item::find()->status(Item::STATUS_ON)->sortDate()->where(['category_id' => ArrayHelper::map($cate, 'category_id', 'category_id')]);
+        $record = $query->one();
+        if (!$record) {
+            $record = $query1->one();
+        }
+        
+        return $record ? new ArticleObject($record) : $record;
     }
     
     public function api_CateChild($id)

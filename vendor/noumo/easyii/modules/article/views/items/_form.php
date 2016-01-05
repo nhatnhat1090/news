@@ -36,7 +36,7 @@ $module = $this->context->module->id;
             'minHeight' => 400,
             'imageUpload' => Url::to(['/admin/redactor/upload', 'dir' => 'article'], true),
             'fileUpload' => Url::to(['/admin/redactor/upload', 'dir' => 'article'], true),
-            'plugins' => ['fullscreen']
+            'plugins' => ['fullscreen', 'fontfamily', 'fontcolor', 'fontsize']
         ]
     ]) ?>
 <?php endif; ?>  

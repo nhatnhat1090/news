@@ -14,14 +14,23 @@ class ArticlesController extends \yii\web\Controller
     public function actionCat($slug, $tag = null)
     {
         $cat = Article::cat($slug);
+
         if(!$cat){
             throw new \yii\web\NotFoundHttpException('Article category not found.');
         }
-        
-        return $this->render('cat', [
-            'cat' => $cat,
-            'items' => $cat->items(['tags' => $tag, 'pagination' => ['pageSize' => 20]])
-        ]);
+
+        if (($cat->depth == 0) && (Article::cateChild($cat->id))) {
+            $top = Article::topOfRootCate($cat->id);
+            return $this->render('cat_root', [
+                'cat' => $cat,
+                'top' => $top
+            ]);
+        } else {
+            return $this->render('cat', [
+                'cat' => $cat,
+                'items' => $cat->items(['tags' => $tag, 'pagination' => ['pageSize' => 20]])
+            ]);
+        }
     }
 
     public function actionView($slug)

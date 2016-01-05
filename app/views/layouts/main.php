@@ -14,26 +14,7 @@ $asset = \app\assets\FrontAsset::register($this);
 <div class="gb-view-container">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-12 col-md-8 gb-column gb-column__big">
-                <div class="news-group">
-                    <div class="news-group__header news-group__header__orange-border news-group__header__no-background">
-                        <h2 class="news-group__header-menu">
-                            <?php foreach ($this->params['breadcrumbs'] as $item): ?>
-                                <?php if(is_array($item)): ?>
-                                    <a href="<?= Url::to($item['url']) ?>" title=""><?= $item['label'] ?></a>
-                                    <span class="category-page__menu-separate">&nbsp;</span>
-                                <?php else: ?>
-                                    <span><?= $item ?></span>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </h2>
-                    </div>
-                    <div class="news-detail__container">
-                        <?= $content ?>
-                    </div>
-                </div>
-
-            </div>
+            <?= $content ?>
             <div class="col-xs-12 col-md-4 gb-column gb-column__small">
                 <?= ArticleFeatures::widget(['type' => 'lastest', 'limit' => 5, 'title' => 'Tin mới']) ?>
 
