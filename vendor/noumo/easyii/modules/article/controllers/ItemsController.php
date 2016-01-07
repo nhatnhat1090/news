@@ -67,6 +67,13 @@ class ItemsController extends Controller
         ]);
     }
     
+    public function actionCkfinder()
+    {
+        $this->layout = false;
+        
+        return $this->render('ckfinder');
+    }
+    
     public function actionTop()
     {    
         if(!IS_ROOT) {

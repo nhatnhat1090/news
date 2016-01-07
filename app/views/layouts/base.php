@@ -42,6 +42,7 @@ function renderNode($node, $boderColor) {
         <meta charset="<?= Yii::$app->charset ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 <?= Html::csrfMetaTags() ?>
+		<meta property="fb:app_id" content="1688377211434055"/>
         <title><?= Html::encode($this->title) ?></title>
         <link rel="shortcut icon" href="<?= $asset->baseUrl ?>/favicon.ico" type="image/x-icon">
         <link rel="icon" href="<?= $asset->baseUrl ?>/favicon.ico" type="image/x-icon">
@@ -50,6 +51,23 @@ function renderNode($node, $boderColor) {
     <body>
 
 <?php $this->beginBody() ?>
+		<script>
+		  window.fbAsyncInit = function() {
+			FB.init({
+			  appId      : '1688377211434055',
+			  xfbml      : true,
+			  version    : 'v2.5'
+			});
+		  };
+
+		  (function(d, s, id){
+			 var js, fjs = d.getElementsByTagName(s)[0];
+			 if (d.getElementById(id)) {return;}
+			 js = d.createElement(s); js.id = id;
+			 js.src = "//connect.facebook.net/vi_VN/sdk.js";
+			 fjs.parentNode.insertBefore(js, fjs);
+		   }(document, 'script', 'facebook-jssdk'));
+		</script>
         <div class="page-wrapper">
             <div class="page-wrapper-content">
                 <div class="header-container">

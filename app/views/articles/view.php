@@ -56,7 +56,10 @@ $asset = \app\assets\FrontAsset::register($this);
                 <div class="news-detail__date">
                     <?= date('d/m/Y | H:i', $article->model->time) . ' GMT+7' ?>
                 </div>
-                <div class="news-detail__body">
+				<p>
+					<div class="fb-like" data-href="<?= Url::to(['articles/view', 'slug' => $article->model->slug], true); ?>" data-width="550" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+				</p>
+				<div class="news-detail__body">
                     <p style="font-weight: bold;">
                         <?= $article->model->short ?>
                     </p>
@@ -90,6 +93,7 @@ $asset = \app\assets\FrontAsset::register($this);
                     <?php endforeach; ?>
                 </ul>
             </div>
+			<div class="fb-comments" data-href="<?= Url::to(['articles/view', 'slug' => $article->model->slug], true); ?>" data-width="800" data-numposts="5"></div>
         </div>
     </div>
 

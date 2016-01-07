@@ -900,7 +900,7 @@
                 "package.json"
             ]
         },
-        "installation-source": "source"
+        "installation-source": "dist"
     },
     {
         "name": "bower-asset/jquery",
@@ -1030,7 +1030,7 @@
                 "dev-master": "2.0.3-dev"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "license": [
             "MIT"
         ]
@@ -1150,7 +1150,7 @@
                 "bower-asset-library": "vendor/bower"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-4": {
                 "dosamigos\\ckeditor\\": "src"
@@ -1443,7 +1443,7 @@
                 "test"
             ]
         },
-        "installation-source": "source"
+        "installation-source": "dist"
     },
     {
         "name": "bower-asset/fancybox",
@@ -1487,7 +1487,7 @@
                 "dev-master": "2.1.5-dev"
             }
         },
-        "installation-source": "source"
+        "installation-source": "dist"
     },
     {
         "name": "bower-asset/jquery.switcher",
@@ -1530,7 +1530,7 @@
                 "dev-master": "1.2.4-dev"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "license": [
             "no"
         ],

@@ -18,6 +18,9 @@ $moduleName = $this->context->module->id;
     <link rel="shortcut icon" href="<?= $asset->baseUrl ?>/favicon.ico" type="image/x-icon">
     <link rel="icon" href="<?= $asset->baseUrl ?>/favicon.ico" type="image/x-icon">
     <?php $this->head() ?>
+    <script type="text/javascript">
+        var BaseUrl = '<?= Url::to(['/'], true) . 'finder'; ?>';
+    </script>
 </head>
 <body>
 <?php $this->beginBody() ?>

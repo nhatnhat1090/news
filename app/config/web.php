@@ -35,7 +35,11 @@ $config = [
 			],
         ],
         'urlManager' => [
+            //'suffix' => '.html', 
             'rules' => [
+                ['pattern'=>'<slug:[\w-]+>-post','route'=>'articles/view',  'suffix'=>'.html'],
+                ['pattern'=>'<slug:[\w-]+>','route'=>'articles/cat',  'suffix'=>'.html'],
+                'finder' => 'admin/article/items/ckfinder',
                 '<controller:\w+>/view/<slug:[\w-]+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/cat/<slug:[\w-]+>' => '<controller>/cat',

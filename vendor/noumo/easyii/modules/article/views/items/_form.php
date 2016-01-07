@@ -7,6 +7,7 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\easyii\widgets\Redactor;
 use yii\easyii\widgets\SeoForm;
+use dosamigos\ckeditor\CKEditor;
 
 $module = $this->context->module->id;
 ?>
@@ -31,13 +32,17 @@ $module = $this->context->module->id;
     <?= $form->field($model, 'short')->textarea() ?>
 <?php endif; ?>  
 <?php if($model->type === 1): ?>   
-    <?= $form->field($model, 'text')->widget(Redactor::className(),[
+    <?php /* $form->field($model, 'text')->widget(Redactor::className(),[
         'options' => [
             'minHeight' => 400,
             'imageUpload' => Url::to(['/admin/redactor/upload', 'dir' => 'article'], true),
             'fileUpload' => Url::to(['/admin/redactor/upload', 'dir' => 'article'], true),
             'plugins' => ['fullscreen', 'fontfamily', 'fontcolor', 'fontsize']
         ]
+    ]) */?>
+    <?= $form->field($model, 'text')->widget(CKEditor::className(), [
+        'options' => ['rows' => 6],
+        'preset' => 'full'
     ]) ?>
 <?php endif; ?>  
 <?= $form->field($model, 'time')->widget(DateTimePicker::className()); ?>
