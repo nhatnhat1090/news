@@ -1,13 +1,9 @@
 <?php
-//use yii\easyii\modules\shopcart\api\Shopcart;
-//use yii\easyii\modules\subscribe\api\Subscribe;
-//use yii\helpers\Url;
-//use yii\widgets\Breadcrumbs;
-//use yii\widgets\Menu;
-//
-//$goodsCount = count(Shopcart::goods());
+use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\easyii\widgets\ArticleFeatures;
+use yii\easyii\modules\carousel\api\Carousel;
+
 $asset = \app\assets\FrontAsset::register($this);
 ?>
 <?php $this->beginContent('@app/views/layouts/base.php'); ?>
@@ -52,7 +48,7 @@ $asset = \app\assets\FrontAsset::register($this);
                     </div>
                 </div>
 
-                <div class="top-news__container col-xs-12 col-sm-6 col-md-12">
+<!--                <div class="top-news__container col-xs-12 col-sm-6 col-md-12">
                     <div class="top-news__header-group top-news__header-group__blue">
                         <h2>Góc hỏi đáp</h2>
                     </div>
@@ -97,19 +93,29 @@ $asset = \app\assets\FrontAsset::register($this);
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
-                <div class="side-ads__container col-xs-12 col-sm-6 col-md-12">
-                    <a href="#" title="">
-                        <img src="<?= $asset->baseUrl ?>/img/side_ads1.png" alt=""/>
-                    </a>
-                </div>
-
-                <div class="side-ads__container col-xs-12 col-sm-6 col-md-12">
-                    <a href="#" title="">
-                        <img src="<?= $asset->baseUrl ?>/img/side_ads2.png" alt=""/>
-                    </a>
-                </div>
+                <?php if ($sideAds1 = Carousel::byKey('side_ads_1')): ?>
+                    <div class="side-ads__container col-xs-12 col-sm-6 col-md-12">
+                        <a href="<?= $sideAds1->link ?>" title="<?= $sideAds1->title ?>">
+                            <?= Html::img($sideAds1->thumb(300), ['alt' => $sideAds1->title]) ?>
+                        </a>
+                    </div>
+                <?php endif; ?>
+                <?php if ($sideAds2 = Carousel::byKey('side_ads_2')): ?>
+                    <div class="side-ads__container col-xs-12 col-sm-6 col-md-12">
+                        <a href="<?= $sideAds2->link ?>" title="<?= $sideAds2->title ?>">
+                            <?= Html::img($sideAds2->thumb(300), ['alt' => $sideAds2->title]) ?>
+                        </a>
+                    </div>
+                <?php endif; ?>
+                <?php if ($sideAds3 = Carousel::byKey('side_ads_3')): ?>
+                    <div class="side-ads__container col-xs-12 col-sm-6 col-md-12">
+                        <a href="<?= $sideAds3->link ?>" title="<?= $sideAds3->title ?>">
+                            <?= Html::img($sideAds3->thumb(300), ['alt' => $sideAds3->title]) ?>
+                        </a>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

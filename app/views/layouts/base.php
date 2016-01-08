@@ -2,6 +2,7 @@
 use yii\helpers\Url;
 use yii\easyii\modules\article\api\Article;
 use yii\helpers\Html;
+use yii\easyii\modules\carousel\api\Carousel;
 
 $asset = \app\assets\FrontAsset::register($this);
 $boderColor = [
@@ -78,11 +79,13 @@ function renderNode($node, $boderColor) {
                                     <img class="header-container__logo-img" src="<?= $asset->baseUrl ?>/img/logo.png" alt=""/>
                                 </a>
                             </div>
+                            <?php if ($banner = Carousel::byKey('banner')): ?>
                             <div class="col-xs-12 col-md-8">
-                                <a class="header-container__ad-link" href="#" title="">
-                                    <img class="header-container__ad-img" src="<?= $asset->baseUrl ?>/img/top_ad.png" alt=""/>
+                                <a class="header-container__ad-link" href="<?= $banner->link ?>" title="">
+                                <?= Html::img($banner->thumb(728), ['class' => 'header-container__ad-img', 'alt' => $banner->title]) ?>
                                 </a>
                             </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

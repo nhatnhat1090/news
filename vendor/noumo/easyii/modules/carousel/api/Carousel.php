@@ -74,4 +74,10 @@ class Carousel extends API
     {
         return $this->_items;
     }
+    
+    public function api_byKey($key) {
+        $record = CarouselModel::find()->where(['key' => $key])->status(CarouselModel::STATUS_ON)->one();
+        
+        return $record ? new CarouselObject($record) : null;
+    }
 }

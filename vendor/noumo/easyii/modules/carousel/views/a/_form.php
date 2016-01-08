@@ -7,10 +7,11 @@ use yii\widgets\ActiveForm;
     'options' => ['enctype' => 'multipart/form-data', 'class' => 'model-form']
 ]); ?>
 <?php if($model->image) : ?>
-    <img src="<?= $model->image ?>" style="width: 848px">
+    <img src="<?= $model->image ?>" style="max-width: 550px">
 <?php endif; ?>
 <?= $form->field($model, 'image')->fileInput() ?>
 <?= $form->field($model, 'link') ?>
+<?= $form->field($model, 'key') ?>
 <?php if($this->context->module->settings['enableTitle']) : ?>
     <?= $form->field($model, 'title')->textarea() ?>
 <?php endif; ?>

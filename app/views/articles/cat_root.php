@@ -1,8 +1,9 @@
 <?php
-
 use yii\easyii\modules\article\api\Article;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\easyii\modules\carousel\api\Carousel;
+
 $asset = \app\assets\FrontAsset::register($this);
 $this->title = $cat->seo('title', $cat->model->title);
 if ($cateParent = Article::cateParent($cat->tree, $cat->id)) {
@@ -57,7 +58,7 @@ $this->params['breadcrumbs'][] = $cat->model->title;
         <?php endif; ?>
     </div>
     <?php 
-        foreach (Article::cateChild($cat->id) as $cateChild): 
+        foreach (Article::cateChild($cat->id) as $key => $cateChild): 
             $items = $cateChild->items(['where' => ['not', ['item_id' => $top->id]], 'pagination' => ['pageSize' => 6]]);
     ?>
     <div class="news-group">
@@ -134,13 +135,15 @@ $this->params['breadcrumbs'][] = $cat->model->title;
                 <?php endfor; ?>
             </div>
             <?php endif; ?>
-            <div class="row">
-                <div class="ads-container category-page__ads">
-                    <a href="#" title="">
-                        <img src="<?= $asset->baseUrl ?>/img/body_ads.png" alt=""/>
-                    </a>
+            <?php if ($bodyAds = Carousel::byKey('body_ads_'.($key + 1))): ?>
+                <div class="row">
+                    <div class="ads-container category-page__ads">
+                        <a href="<?= $bodyAds->link ?>" title="<?= $bodyAds->title ?>">
+                            <?= Html::img($bodyAds->thumb(728), ['alt' => $bodyAds->title]) ?>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
         </div>
         <?php endif; ?>
     </div>

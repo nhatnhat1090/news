@@ -12,6 +12,7 @@ CKFinder.customConfig = function( config ){
     // config.uiColor = '#2F8EB9';
     config.language = 'vi';
     config.removePlugins = 'help,basket,flashupload';
+    config.disableThumbnailSelection = true;
 //    config.readOnly = true;
 //    config.defaultDisplayFilesize = false;
 //    config.selectMultiple = false;

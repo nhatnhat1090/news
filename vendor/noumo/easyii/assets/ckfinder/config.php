@@ -84,7 +84,7 @@ ATTENTION: The trailing slash is required.
 //$baseDir = resolveUrl($baseUrl);
 //$baseDir = __DIR__ . '/../img/editor_file/';
 $baseDir = dirname(__DIR__).'/../uploads/article';
-$baseThumbs = dirname(__DIR__).'/../uploads/article';
+$baseThumbs = dirname(__DIR__).'/../uploads/article/thumb';
 
 /* 
  * ### Advanced Settings
