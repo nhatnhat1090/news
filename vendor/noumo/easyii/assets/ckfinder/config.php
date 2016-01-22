@@ -63,7 +63,7 @@ Examples:
 ATTENTION: The trailing slash is required.
 */
 //$baseUrl = 'img/editor_file/';
-$baseUrl = 'http://news.vn/uploads/article/';
+$baseUrl = 'http://news.vn/uploads/';
 /*
 $baseDir : the path to the local directory (in the server) which points to the
 above $baseUrl URL. This is the path used by CKFinder to handle the files in
@@ -83,8 +83,8 @@ ATTENTION: The trailing slash is required.
 */
 //$baseDir = resolveUrl($baseUrl);
 //$baseDir = __DIR__ . '/../img/editor_file/';
-$baseDir = dirname(__DIR__).'/../uploads/article';
-$baseThumbs = dirname(__DIR__).'/../uploads/article/thumb';
+$baseDir = dirname(__DIR__).'/../uploads/article/';
+$baseThumbs = dirname(__DIR__).'/../uploads/_thumbs/';
 
 /* 
  * ### Advanced Settings
@@ -95,7 +95,7 @@ Thumbnails : thumbnails settings. All thumbnails will end up in the same
 directory, no matter the resource type.
 */
 $config['Thumbnails'] = Array(
-	'url' => $baseUrl,
+	'url' => $baseUrl . '_thumbs',
 	'directory' => $baseThumbs,
 	'enabled' => true,
 	'directAccess' => false,
@@ -144,12 +144,12 @@ $config['AccessControl'][] = Array(
 	'folder' => '/',
 
 	'folderView' => true,
-	'folderCreate' => false,
-	'folderRename' => false,
+	'folderCreate' => true,
+	'folderRename' => true,
 	'folderDelete' => false,
 
 	'fileView' => true,
-	'fileUpload' => false,
+	'fileUpload' => true,
 	'fileRename' => false,
 	'fileDelete' => false
 );
@@ -210,7 +210,7 @@ $config['DefaultResourceTypes'] = '';
 
 $config['ResourceType'][] = Array(
 		'name' => 'images',
-		'url' => $baseUrl,
+		'url' => $baseUrl . 'article',
 		'directory' => $baseDir,
 		'maxSize' => 0,
 		//'allowedExtensions' => 'jpeg,jpg,png',

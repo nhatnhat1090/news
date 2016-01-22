@@ -59,4 +59,14 @@ class ActiveQuery extends \yii\db\ActiveQuery
         $this->orderBy(['time' => SORT_DESC]);
         return $this;
     }
+    
+    /**
+     * Order by views
+     * @return $this
+     */
+    public function sortView()
+    {
+        $this->orderBy(['views' => SORT_DESC]);
+        return $this;
+    }
 }

@@ -18,10 +18,12 @@ class PhotoObject extends \yii\easyii\components\ApiObject
             'rel' => 'article-'.$this->model->item_id,
             'title' => $this->description
         ]);
-        return LIVE_EDIT ? API::liveEdit($a, $this->editLink) : $a;
+//         <li data-responsive="images/1-375.jpg 375, images/1-480.jpg 480, images/1.jpg 800" data-src="images/1-1600.jpg" data-sub-html="<h4>Fading Light</h4><p>Classic view from Rigwood Jetty on Coniston Water an old archive shot similar to an old post but a little later on.</p>">
+//                    <a href="">
+//                        <img class="img-responsive" src="images/1.jpg">
+//                    </a>
+//                </li>
+        return $a;
     }
-
-    public function getEditLink(){
-        return Url::to(['/admin/article/items/photos', 'id' => $this->model->item_id]).'#photo-'.$this->id;
-    }
+    
 }

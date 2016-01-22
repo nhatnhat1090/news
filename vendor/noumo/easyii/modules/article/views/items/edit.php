@@ -15,4 +15,4 @@ $this->title = $model->title;
     <li class="active"><a href="<?= Url::to(['/admin/'.$module.'/items/edit', 'id' => $model->primaryKey]) ?>"><?= Yii::t('easyii/article', 'Edit article') ?></a></li>
 </ul>
 <?php endif; ?>
-<?= $this->render('_form', ['model' => $model]) ?>
+<?= $this->render($model->type == 4 ? '_form_link' : '_form' , ['model' => $model]) ?>

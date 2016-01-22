@@ -130,7 +130,7 @@ class CategoryModel extends \yii\easyii\components\ActiveRecord
      */
     public static function generateTree()
     {
-        $collection = static::find()->with('seo')->sort()->asArray()->all();
+        $collection = static::find()->with('seo')->sort()->status(self::STATUS_ON)->asArray()->all();
         $trees = array();
         $l = 0;
 
@@ -236,6 +236,6 @@ class CategoryModel extends \yii\easyii\components\ActiveRecord
      */
     public static function getRootCates()
     {
-        return static::find()->where(['depth' => 0])->sort()->asArray()->all();
+        return static::find()->where(['depth' => 0])->sort()->status(self::STATUS_ON)->asArray()->all();
     }
 }

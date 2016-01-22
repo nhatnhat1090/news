@@ -28,7 +28,8 @@ class ArticlesController extends \yii\web\Controller
         } else {
             return $this->render('cat', [
                 'cat' => $cat,
-                'items' => $cat->items(['tags' => $tag, 'pagination' => ['pageSize' => 20]])
+                'items' => Article::items(['tags' => $tag, 'where' => ['category_id' => $cat->id], 'pagination' => ['pageSize' => 20]])
+                //'items' => $cat->items(['tags' => $tag, 'pagination' => ['pageSize' => 100]])
             ]);
         }
     }
@@ -40,12 +41,38 @@ class ArticlesController extends \yii\web\Controller
         if(!$article){
             throw new \yii\web\NotFoundHttpException('Article not found.');
         }
-        $related = Article::related($article->cat->category_id, $article->model->item_id, 5);
+        if ($slug == 'edulink') {
+            $this->redirect(['/']);
+        }
+        $type = $article->model->type;
+        
+        if ($type == 1) {
+            $related = Article::related($article->cat->category_id, $article->model->item_id, 5);
+            $view = 'view';
+        } elseif (($type == 2) || ($type == 3)) {
+            $view = 'media';
+            $related = Article::related($article->cat->category_id, $article->model->item_id, 5, false);
+        }
 
-        return $this->render('view', [
+
+        return $this->render($view, [
             'article' => $article,
             'related' => $related
         ]);
+    }
+    
+    public function actionSearch($keyword)
+    {
+        $this->layout = "one_column";
+        $conditions = [
+            'or',
+            ['like', 'title', $keyword],
+            ['like', 'short', $keyword],
+            ['like', 'text', $keyword]
+        ];
+        $items =  Article::items(['where' => $conditions, 'pagination' => ['pageSize' => 20]]);
+        
+        return $this->render('search', ['keyword' => $keyword, 'items' => $items]);
     }
 
 }

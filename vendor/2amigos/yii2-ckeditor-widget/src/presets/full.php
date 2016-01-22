@@ -9,18 +9,18 @@
  */
 return [
     'height' => 300,
-    'language' => 'vi',
+    'language' => 'en',
     'toolbarGroups' => [
         ['name' => 'document', 'groups' => ['mode', 'document', 'doctools']],
         ['name' => 'clipboard', 'groups' => ['clipboard', 'undo']],
         ['name' => 'editing', 'groups' => [ 'find', 'selection', 'spellchecker']],
-        ['name' => 'forms'],
-        '/',
         ['name' => 'basicstyles', 'groups' => ['basicstyles', 'colors','cleanup']],
-        ['name' => 'paragraph', 'groups' => [ 'list', 'indent', 'blocks', 'align']],
         ['name' => 'links'],
-        ['name' => 'insert'],
+        //['name' => 'forms'],
         '/',
+        ['name' => 'paragraph', 'groups' => [ 'list', 'indent', 'blocks', 'align']],
+        
+        ['name' => 'insert'],
         ['name' => 'styles'],
         ['name' => 'blocks'],
         ['name' => 'colors'],
@@ -28,5 +28,5 @@ return [
         ['name' => 'others'],
         ['name' =>  'Youtube']
     ],
-    'removeButtons' => 'CreateDiv,Flash,Iframe'
+    'removeButtons' => 'CreateDiv,Flash,Iframe,ShowBlocks,PageBreak'
 ];

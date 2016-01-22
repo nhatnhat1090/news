@@ -99,6 +99,7 @@ class ItemsController extends Controller
         
         $model = new Item();
         $model->cate = $id;
+
         $type = Yii::$app->getRequest()->getQueryParam('type');
         if (($type == "2")) {
             $model->type = 2;
@@ -109,8 +110,16 @@ class ItemsController extends Controller
             $model->scenario = Item::SCENARIO_POST_TEXT;
             $model->type = 1;
         }
-
-        if ($model->load(Yii::$app->request->post())) {
+        
+        if ($category->slug == 'edulink') {
+            $model->type = 4;
+            $model->scenario = 'default';
+        }
+        $formData = Yii::$app->request->post();
+        if ($model->load($formData)) {
+            if (isset($formData['Item']['link'])) {
+                $model->link = $formData['Item']['link'];
+            }
             if(Yii::$app->request->isAjax){
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                 return ActiveForm::validate($model);

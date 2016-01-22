@@ -1,4 +1,5 @@
 <?php
+
 use yii\easyii\modules\article\api\Article;
 use yii\helpers\Url;
 use yii\helpers\Html;
@@ -36,65 +37,37 @@ $asset = \app\assets\FrontAsset::register($this);
   <small class="text-muted">Views: <?= $article->views?></small>
  * 
  */ ?>
-<div class="col-xs-12 col-md-8 gb-column gb-column__big">
-    <div class="news-group">
-        <div class="news-group__header news-group__header__orange-border news-group__header__no-background">
-            <h2 class="news-group__header-menu">
-                <?php foreach ($this->params['breadcrumbs'] as $item): ?>
-                    <?php if(is_array($item)): ?>
-                        <a href="<?= Url::to($item['url']) ?>" title=""><?= $item['label'] ?></a>
-                        <span class="category-page__menu-separate">&nbsp;</span>
-                    <?php else: ?>
-                        <span><?= $item ?></span>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </h2>
-        </div>
-        <div class="news-detail__container">
-            <div class="news-detail__main-content">
-                <h1 class="news-detail__title"><?= $article->model->title ?></h1>
-                <div class="news-detail__date">
-                    <?= date('d/m/Y | H:i', $article->model->time) . ' GMT+7' ?>
-                </div>
-				<p>
-					<div class="fb-like" data-href="<?= Url::to(['articles/view', 'slug' => $article->model->slug], true); ?>" data-width="550" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-				</p>
-				<div class="news-detail__body">
-                    <p style="font-weight: bold;">
-                        <?= $article->model->short ?>
-                    </p>
-                    <!--        <div class="news-detail__image-container">
-                                <img src="<?= $asset->baseUrl ?>/img/news-detail-image.png" alt=""/>
-                            </div>-->
-                    <p><?= $article->model->text ?></p>
-                </div>
-                <div class="news-detail__social-container">
-                    <a href="#" title="">
-                        <img src="<?= $asset->baseUrl ?>/img/news-detail-facebook.png" alt=""/>
-                    </a>
-                    <a href="#" title="">
-                        <img src="<?= $asset->baseUrl ?>/img/news-detail-twitter.png" alt=""/>
-                    </a>
-                    <a href="#" title="">
-                        <img src="<?= $asset->baseUrl ?>/img/news-detail-google-plus.png" alt=""/>
-                    </a>
-                    <a href="#" title="">
-                        <img src="<?= $asset->baseUrl ?>/img/news-detail-share-plus.png" alt=""/>
-                    </a>
-                </div>
-            </div>
-            <div class="news-detail__related-pages">
-                <h3 class="news-detail__related-pages-title">BÀI VIẾT LIÊN QUAN</h3>
-                <ul class="news-detail__related-pages-list">
-                    <?php foreach($related as $item): ?>
-                    <li class="news-detail__related-pages-list-item">
-                        <?= Html::a($item->title, ['articles/view', 'slug' => $item->slug]) ?>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-			<div class="fb-comments" data-href="<?= Url::to(['articles/view', 'slug' => $article->model->slug], true); ?>" data-width="800" data-numposts="5"></div>
-        </div>
-    </div>
+<div class="sitemap sitemap-color2">
+<?php foreach ($this->params['breadcrumbs'] as $item): ?>
+<?php if(is_array($item)): ?>
+    <a href="<?= Url::to($item['url']) ?>" title=""><?= $item['label'] ?></a>
+    <span>
+        <i class="fa fa-angle-double-right"></i>
+    </span>
+<?php else: ?>
+    <span><?= $item ?></span>
+<?php endif; ?>
+<?php endforeach; ?>
+</div>
 
+<div class="detail">
+    <h1><?= $article->model->title ?></h1>
+    <p class="date">
+        <?= date('d/m/Y | H:i', $article->model->time) . ' GMT+7' ?>
+    </p>
+    <p>
+        <div class="fb-like" data-href="<?= Url::to(['articles/view', 'slug' => $article->model->slug], true); ?>" data-width="550" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+	</p>
+    <p class="bold"><?= $article->model->short ?></p>
+    <p><?= $article->model->text ?></p>
+    <div class="news-ref">
+        <h3>Bài viết liên quan</h3>
+        <ul>
+            <?php foreach($related as $item): ?>
+            <li><?= Html::a($item->title, ['articles/view', 'slug' => $item->slug]) ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    
+    <div class="fb-comments" data-href="<?= Url::to(['articles/view', 'slug' => $article->model->slug], true); ?>" data-width="800" data-numposts="5"></div>
 </div>

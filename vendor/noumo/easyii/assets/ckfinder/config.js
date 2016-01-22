@@ -4,24 +4,13 @@ For licensing, see LICENSE.html or http://cksource.com/ckfinder/license
 */
 
 CKFinder.customConfig = function( config ){
-    // Define changes to default configuration here.
-    // For the list of available options, check:
-    // http://docs.cksource.com/ckfinder_2.x_api/symbols/CKFinder.config.html
+	// Define changes to default configuration here.
+	// For the list of available options, check:
+	// http://docs.cksource.com/ckfinder_2.x_api/symbols/CKFinder.config.html
 
-    // Sample configuration options:
-    // config.uiColor = '#2F8EB9';
-    config.language = 'vi';
-    config.removePlugins = 'help,basket,flashupload';
-    config.disableThumbnailSelection = true;
-//    config.readOnly = true;
-//    config.defaultDisplayFilesize = false;
-//    config.selectMultiple = false;
-//    config.disableHelpButton = true;
-//    config.disableThumbnailSelection = true;
-//    config.popupFeatures = false;
-//    config.showContextMenuArrow = false;
-//    config.sidebarWidth = '0%';
-//    config.toolbar_Full = false;
-//    config.toolbar_txtSearch = false;
-    //config.skin = 'v1';
+	// Sample configuration options:
+	// config.uiColor = '#2F8EB9';
+	// config.language = 'en';
+	config.removePlugins = 'basket';
+	// config.skin = 'v1';
 };
