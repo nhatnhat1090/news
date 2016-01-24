@@ -1,0 +1,20 @@
+<?php
+return [
+    'Feedback' => 'Phản hồi',
+    'View feedback' => 'Xem phản hồi',
+    'Feedback deleted' => 'Xóa phản hồi',
+    'Feedback updated' => 'Cập nhật phản hồi',
+    'Answer' => 'Trả lời',
+    'Subject' => 'Tiêu đề',
+    'Phone' => 'Điện thoại',
+    'No answer' => 'Chưa trả lời',
+    'Hello,' => 'Xin chào,',
+    //'Answer on your feedback message' => '',
+    'Best regards.' => 'Thân ái',
+    'Answer successfully sent' => 'Câu trả lời đã thiết lập thành công',
+    'Mark as answered' => 'Đánh dấu tất cả là đã đọc',
+    'feedback answer' => 'Trả lời phản hồi',
+//    'Please fill correct `Admin E-mail` in Settings' => 'Пожалуйста укажите корректный `E-mail Администратора` в разделе Настройки',
+    'Are you sure you want to resend the answer?' => 'Bạn có chắc chắn muốn trả lời lại phản hồi?',
+//    'An error has occurred while sending mail' => 'Произошла ошибка при отправке письма',
+];

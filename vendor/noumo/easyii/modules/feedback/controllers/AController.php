@@ -72,31 +72,36 @@ class AController extends Controller
 
         $postData = Yii::$app->request->post('Feedback');
         if($postData) {
-            if(filter_var(Setting::get('admin_email'), FILTER_VALIDATE_EMAIL))
-            {
-                $model->answer_subject = filter_var($postData['answer_subject'], FILTER_SANITIZE_STRING);
-                $model->answer_text = filter_var($postData['answer_text'], FILTER_SANITIZE_STRING);
-                if($model->sendAnswer()){
-                    $model->status = Feedback::STATUS_ANSWERED;
-                    $model->save();
-                    $this->flash('success', Yii::t('easyii/feedback', 'Answer successfully sent'));
-                }
-                else{
-                    $this->flash('error', Yii::t('easyii/feedback', 'An error has occurred while sending mail'));
-                }
-            }
-            else {
-                $this->flash('error', Yii::t('easyii/feedback', 'Please fill correct `Admin E-mail` in Settings'));
-            }
+            $model->status = Feedback::STATUS_ANSWERED;
+            $model->answer_text = filter_var($postData['answer_text'], FILTER_SANITIZE_STRING);
+            $model->save();
+            $this->flash('success', Yii::t('easyii/feedback', 'Answer successfully sent'));
+//            if(filter_var(Setting::get('admin_email'), FILTER_VALIDATE_EMAIL))
+//            {
+//                $model->answer_subject = filter_var($postData['answer_subject'], FILTER_SANITIZE_STRING);
+//                $model->answer_text = filter_var($postData['answer_text'], FILTER_SANITIZE_STRING);
+//                if($model->sendAnswer()){
+//                    $model->status = Feedback::STATUS_ANSWERED;
+//                    $model->save();
+//                    $this->flash('success', Yii::t('easyii/feedback', 'Answer successfully sent'));
+//                }
+//                else{
+//                    $this->flash('error', Yii::t('easyii/feedback', 'An error has occurred while sending mail'));
+//                }
+//            }
+//            else {
+//                $this->flash('error', Yii::t('easyii/feedback', 'Please fill correct `Admin E-mail` in Settings'));
+//            }
 
             return $this->refresh();
         }
         else {
-            if(!$model->answer_text) {
-                $model->answer_subject = Yii::t('easyii/feedback', $this->module->settings['answerSubject']);
-                if ($this->module->settings['answerHeader']) $model->answer_text = Yii::t('easyii/feedback', $this->module->settings['answerHeader']) . " " . $model->name . ".\n";
-                if ($this->module->settings['answerFooter']) $model->answer_text .= "\n\n" . Yii::t('easyii/feedback', $this->module->settings['answerFooter']);
-            }
+//            if(!$model->answer_text) {
+//                $model->answer_text = $model->name;
+//                //$model->answer_subject = Yii::t('easyii/feedback', $this->module->settings['answerSubject']);
+//                //if ($this->module->settings['answerHeader']) $model->answer_text = Yii::t('easyii/feedback', $this->module->settings['answerHeader']) . " " . $model->name . ".\n";
+//                //if ($this->module->settings['answerFooter']) $model->answer_text .= "\n\n" . Yii::t('easyii/feedback', $this->module->settings['answerFooter']);
+//            }
 
             return $this->render('view', [
                 'model' => $model

@@ -27,7 +27,7 @@ class Feedback extends \yii\easyii\components\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'email', 'text'], 'required'],
+            [['name', 'email', 'text', 'title'], 'required'],
             [['name', 'email', 'phone', 'title', 'text'], 'trim'],
             [['name','title', 'text'], EscapeValidator::className()],
             ['title', 'string', 'max' => 128],
@@ -53,14 +53,14 @@ class Feedback extends \yii\easyii\components\ActiveRecord
         }
     }
 
-    public function afterSave($insert, $changedAttributes)
-    {
-        parent::afterSave($insert, $changedAttributes);
-
-        if($insert){
-            $this->mailAdmin();
-        }
-    }
+//    public function afterSave($insert, $changedAttributes)
+//    {
+//        parent::afterSave($insert, $changedAttributes);
+//
+//        if($insert){
+//            $this->mailAdmin();
+//        }
+//    }
 
     public function attributeLabels()
     {
@@ -69,9 +69,9 @@ class Feedback extends \yii\easyii\components\ActiveRecord
             'name' => Yii::t('easyii', 'Name'),
             'title' => Yii::t('easyii', 'Title'),
             'text' => Yii::t('easyii', 'Text'),
-            'answer_subject' => Yii::t('easyii/feedback', 'Subject'),
+            'answer_subject' => 'Tiêu đề trả lời',
             'answer_text' => Yii::t('easyii', 'Text'),
-            'phone' => Yii::t('easyii/feedback', 'Phone'),
+            'phone' => 'Điện thoại',
             'reCaptcha' => Yii::t('easyii', 'Anti-spam check')
         ];
     }

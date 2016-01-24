@@ -16,7 +16,7 @@ $module = $this->context->module->id;
                 <?php if(IS_ROOT) : ?>
                     <th width="50">#</th>
                 <?php endif; ?>
-                <th><?= Yii::t('easyii', $this->context->module->settings['enableTitle'] ? 'Title' : 'Text') ?></th>
+                <th><?= Yii::t('easyii', 'Title') ?></th>
                 <th width="150"><?= Yii::t('easyii', 'Date') ?></th>
                 <th width="100"><?= Yii::t('easyii/feedback', 'Answer') ?></th>
                 <th width="30"></th>
@@ -28,7 +28,7 @@ $module = $this->context->module->id;
                 <?php if(IS_ROOT) : ?>
                     <td><?= $item->primaryKey ?></td>
                 <?php endif; ?>
-                <td><a href="<?= Url::to(['/admin/'.$module.'/a/view', 'id' => $item->primaryKey]) ?>"><?= ($this->context->module->settings['enableTitle'] && $item->title != '') ? $item->title : StringHelper::truncate($item->text, 64, '...')?></a></td>
+                <td><a href="<?= Url::to(['/admin/'.$module.'/a/view', 'id' => $item->primaryKey]) ?>"><?= $item->title ?></a></td>
                 <td><?= Yii::$app->formatter->asDatetime($item->time, 'short') ?></td>
                 <td>
                     <?php if($item->status == Feedback::STATUS_ANSWERED) : ?>

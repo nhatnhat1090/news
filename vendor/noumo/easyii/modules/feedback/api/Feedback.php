@@ -41,18 +41,43 @@ class Feedback extends \yii\easyii\components\API
 
         echo Html::hiddenInput('errorUrl', $options['errorUrl'] ? $options['errorUrl'] : Url::current([self::SENT_VAR => 0]));
         echo Html::hiddenInput('successUrl', $options['successUrl'] ? $options['successUrl'] : Url::current([self::SENT_VAR => 1]));
+        echo Html::beginTag('div', ['class' => 'row']);
+        echo Html::beginTag('div', ['class' => 'col-md-12 col-sm-12']);
+        //echo Html::tag('p', 'Tiêu đề');
+        echo Html::beginTag('div', ['class' => 'row']);
+        echo Html::beginTag('div', ['class' => 'col-md-12 col-sm-12']);
+        echo $form->field($model, 'title')->textInput(['class' => 'form-control', 'placeholder' => 'Tiêu đề']);
+        echo Html::endTag('div');
+        echo Html::beginTag('div', ['class' => 'col-md-6 col-sm-6']);
+        //echo Html::tag('p', 'Tên người hỏi');
+        echo $form->field($model, 'name')->textInput(['class' => 'form-control', 'placeholder' => 'Tên người hỏi']);
+        echo Html::endTag('div');
+        echo Html::beginTag('div', ['class' => 'col-md-6 col-sm-6']);
+        //echo Html::tag('p', 'Email');
+        echo $form->field($model, 'email')->input('email', ['class' => 'form-control', 'placeholder' => 'Email']);
+        echo Html::endTag('div');
+        echo Html::endTag('div');
+        echo Html::endTag('div');
+        echo Html::endTag('div');
+        
+//        echo Html::beginTag('div', ['class' => 'row']);
+//        echo Html::beginTag('div', ['class' => 'col-md-12 col-sm-12']);
+//        echo $form->field($model, 'reCaptcha')->widget(ReCaptcha::className());
+//        echo Html::endTag('div');
+//        echo Html::endTag('div');
+//        if($settings['enablePhone']) echo $form->field($model, 'phone');
+//        if($settings['enableTitle']) echo $form->field($model, 'title');
+        
+        echo Html::beginTag('div', ['class' => 'row']);
+        echo Html::beginTag('div', ['class' => 'col-md-6 col-sm-6']);
+        echo $form->field($model, 'text')->textarea(['class' => 'form-control', 'placeholder' => 'Mô tả câu hỏi']);
+        echo Html::endTag('div');
+        echo Html::endTag('div');
 
-        echo $form->field($model, 'name');
-        echo $form->field($model, 'email')->input('email');
-
-        if($settings['enablePhone']) echo $form->field($model, 'phone');
-        if($settings['enableTitle']) echo $form->field($model, 'title');
-
-        echo $form->field($model, 'text')->textarea();
-
-        if($settings['enableCaptcha']) echo $form->field($model, 'reCaptcha')->widget(ReCaptcha::className());
-
-        echo Html::submitButton(Yii::t('easyii', 'Send'), ['class' => 'btn btn-primary']);
+        //if($settings['enableCaptcha']) echo $form->field($model, 'reCaptcha')->widget(ReCaptcha::className());
+        echo Html::beginTag('div', ['class' => 'text-right']);
+        echo Html::submitButton('Gửi câu hỏi', ['class' => 'btn-sent']);
+        echo Html::endTag('div');
         ActiveForm::end();
 
         return ob_get_clean();
